@@ -1,0 +1,69 @@
+name: Tests
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: 
+      - '**'
+  pull_request:
+    branches: 
+      - '**'
+  schedule:
+    - cron: '0 0 * * *'  # Every day at 00:00 UTC
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ${{ matrix.os }}
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.9", "3.10", "3.11"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          use-mamba: false
+          python-version: 3.11
+          auto-activate-base: false
+          miniforge-variant: Miniforge3
+
+      - name: Modify environment.yml with matrix Python version (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          sed -i.bak "s/^  - python=.*/  - python=${{ matrix.python-version }}/" environment.yml
+
+      - name: Modify environment.yml with matrix Python version (Windows)
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          $file = 'environment.yml'
+          (Get-Content $file) -replace '^\s+- python=.*', "  - python=${{ matrix.python-version }}" | Set-Content $file
+
+      - name: Create environment
+        run: |
+          conda env create -n plaid-dev -f environment.yml
+          conda run -n plaid-dev pip install -e .
+
+      - name: Run tests on Linux
+        if: runner.os == 'Linux'
+        run: |
+          conda run -n plaid-dev pytest tests
+
+      - name: Run tests on macOS
+        if: runner.os == 'macOS'
+        run: |
+          conda run -n plaid-dev pytest tests
+
+      - name: Run tests on Windows
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          conda run -n plaid-dev pytest tests

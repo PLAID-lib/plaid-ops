@@ -1,0 +1,27 @@
+[build-system]
+requires = [
+    "setuptools>=60",
+    "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plaid-meshops"
+version = "0.1.0"
+description = "Mesh operations for PLAID datasets"
+authors = [
+    { name = "Fabien Casenave", email = "fabien.casenave@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.9"
+
+dependencies = [
+    "plaid==0.1.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/PLAID-lib/plaid-meshops"
+Repository = "https://github.com/PLAID-lib/plaid-meshops"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["plaid_meshops*"]

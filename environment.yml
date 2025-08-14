@@ -1,0 +1,15 @@
+name: plaid-meshops
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.11
+##### RUN #####
+#---# plaid
+  - plaid=0.1.6
+  - muscat=2.4.1
+#---# pip dependencies
+  - pip
+  - pip:
+    - pyright
+    - pytest
