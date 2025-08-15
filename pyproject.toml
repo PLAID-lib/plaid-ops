@@ -5,7 +5,7 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "plaid-meshops"
+name = "plaid-ops"
 version = "0.1.0"
 description = "Mesh operations for PLAID datasets"
 authors = [
@@ -15,13 +15,28 @@ readme = "README.md"
 requires-python = ">=3.9"
 
 dependencies = [
-    "plaid==0.1.6",
+    "plaid==0.1.7",
 ]
 
 [project.urls]
-Homepage = "https://github.com/PLAID-lib/plaid-meshops"
-Repository = "https://github.com/PLAID-lib/plaid-meshops"
+Homepage = "https://github.com/PLAID-lib/plaid-ops"
+Repository = "https://github.com/PLAID-lib/plaid-ops"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["plaid_meshops*"]
+include = ["plaid_ops*"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "pyright[nodejs]",
+    "pre-commit",
+    "sphinx",
+    "sphinx-autoapi",
+    "myst-nb",
+    "myst-parser",
+    "nbconvert",
+    "furo",
+]

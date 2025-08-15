@@ -49,4 +49,4 @@ jobs:
 
       - name: Run pyright
         shell: bash -l {0}
-        run: micromamba run -n plaid-meshops pyright
+        run: micromamba run -n plaid-ops pyright

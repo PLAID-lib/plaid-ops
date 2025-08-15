@@ -1,15 +1,27 @@
-name: plaid-meshops
+name: plaid-ops
 channels:
   - conda-forge
   - nodefaults
 dependencies:
   - python=3.11
+  - muscat=2.5.0
 ##### RUN #####
-#---# plaid
-  - plaid=0.1.6
-  - muscat=2.4.1
-#---# pip dependencies
   - pip
   - pip:
-    - pyright
+    - pyplaid==0.1.7
+##### DEV #####
+#---# testing
     - pytest
+    - pytest-cov
+#---# code formatters
+    - ruff
+    - pyright[nodejs]
+#---# dev
+    - pre-commit
+#---# doc
+    - sphinx
+    - sphinx-autoapi
+    - myst-nb
+    - myst-parser
+    - nbconvert
+    - furo
