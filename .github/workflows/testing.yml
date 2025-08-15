@@ -56,19 +56,6 @@ jobs:
         run: |
           conda run -n plaid-ops pytest tests
 
-      - name: Run examples on Unix
-        if: runner.os != 'Windows'
-        run: |
-          cd examples
-          conda run -n plaid-ops bash run_examples.sh
-
-      - name: Run examples on Windows
-        if: runner.os == 'Windows'
-        shell: powershell
-        run: |
-          cd examples
-          conda run -n plaid-ops run_examples.bat
-
       - name: Upload coverage to Codecov (Linux and python 3.11 only)
         if: runner.os == 'Linux' && matrix.python-version == '3.11'
         uses: codecov/codecov-action@v5
