@@ -9,22 +9,22 @@ on:
 
 jobs:
   ruff:
-    name: Ruff format && check
+    name: Ruff format && check and type check
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install library
         run: |
           python -m pip install --upgrade pip
-          pip install ruff
+          pip install ruff pyright[nodejs]
 
       - name: lint
         run: ruff check .
@@ -32,21 +32,5 @@ jobs:
       - name: format check
         run: ruff format --check .
 
-  pyright:
-    name: type check
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up micromamba
-        uses: mamba-org/setup-micromamba@v2
-        with:
-          environment-file: environment.yml
-          cache-environment: true
-          cache-downloads: true
-
       - name: Run pyright
-        shell: bash -l {0}
-        run: micromamba run -n plaid-ops pyright
+        run: pyright

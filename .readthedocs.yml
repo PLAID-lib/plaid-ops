@@ -1,0 +1,25 @@
+# .readthedocs.yml
+# Read the Docs configuration file
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+version: 2
+
+sphinx:
+  configuration: docs/conf.py
+
+build:
+  os: "ubuntu-24.04"
+  tools:
+    python: "3.11"
+  # -------------------------------------------------------------------
+  # To uncomment when needed (typically when more than 50 commits)
+  # -------------------------------------------------------------------
+  # jobs:
+  #   pre_build:
+  #     - git fetch origin --unshallow
+  #     - git rev-list --count HEAD
+
+python:
+  install:
+    - method: pip
+      path: ".[dev]"
