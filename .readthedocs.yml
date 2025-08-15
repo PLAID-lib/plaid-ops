@@ -14,10 +14,13 @@ build:
   os: "ubuntu-24.04"
   tools:
     python: "mambaforge-latest"
-  jobs:
-    pre_build:
-      - git fetch origin --unshallow
-      - git rev-list --count HEAD
+  # -------------------------------------------------------------------
+  # To uncomment when needed (typically when more than 50 commits)
+  # -------------------------------------------------------------------
+  # jobs:
+  #   pre_build:
+  #     - git fetch origin --unshallow
+  #     - git rev-list --count HEAD
 
 python:
   install:
