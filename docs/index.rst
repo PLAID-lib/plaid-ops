@@ -11,8 +11,7 @@
    :align: center
    :width: 300px
 
-PLAID (Physics Learning AI Datamodel) integrations into machine learning frameworks.
-
+Standardized operations on PLAID (Physics Learning AI Datamodel) samples and datasets.
 
 .. warning::
 
