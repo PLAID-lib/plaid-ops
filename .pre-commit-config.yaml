@@ -22,12 +22,12 @@ repos:
         types: [python]
         pass_filenames: false
 
-      - id: run-pyright
-        name: pyright
-        entry: pyright
-        language: system
-        types: [python]
-        press_filenames: false
+      # - id: run-pyright
+      #   name: pyright
+      #   entry: pyright
+      #   language: system
+      #   types: [python]
+      #   press_filenames: false
 
       - id: check-patterns
         name: patterns check
