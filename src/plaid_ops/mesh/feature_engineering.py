@@ -4,8 +4,10 @@ from typing import Optional
 
 from Muscat.Bridges.CGNSBridge import CGNSToMesh
 from Muscat.MeshTools.MeshTools import ComputeSignedDistance
+from plaid.containers.dataset import Dataset
 from plaid.containers.sample import Sample
 from plaid.types import FieldType
+from tqdm import tqdm
 
 
 def compute_sdf(
@@ -62,5 +64,32 @@ def update_sample_with_sdf(
         base_name=base_name,
         location="Vertex",
         time=time,
+        warning_overwrite=False,
     )
     return sample
+
+
+def update_dataset_with_sdf(
+    dataset: Dataset,
+    base_name: Optional[str] = None,
+    zone_name: Optional[str] = None,
+    in_place: Optional[bool] = False,
+    verbose: Optional[bool] = False,
+) -> Dataset:
+    """Function to update a dataset with a computed signed distancs function."""
+    if not in_place:
+        dataset = dataset.copy()
+    for sample in tqdm(dataset, total=len(dataset), disable=not verbose):
+        for time in sample.get_all_mesh_times():
+            sdf = compute_sdf(sample, base_name, zone_name, time)
+            sample.add_field(
+                "sdf",
+                sdf,
+                zone_name=zone_name,
+                base_name=base_name,
+                location="Vertex",
+                time=time,
+                warning_overwrite=False,
+            )
+
+    return dataset

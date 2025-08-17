@@ -34,7 +34,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "pyplaid==0.1.7",
+    "pyplaid>=0.1.7",
 ]
 
 dynamic = ["version"]
