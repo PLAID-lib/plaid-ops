@@ -1,7 +1,6 @@
 line-length = 88
 
 exclude = [
-  "examples",
   "docs",
 ]
 
