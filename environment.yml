@@ -5,10 +5,10 @@ channels:
 dependencies:
   - python=3.11
   - muscat=2.5.0
+  - plaid==0.1.7
 ##### RUN #####
   - pip
   - pip:
-    - pyplaid==0.1.7
 ##### DEV #####
 #---# testing
     - pytest
