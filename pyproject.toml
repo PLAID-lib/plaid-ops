@@ -33,8 +33,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
 
-dependencies = [
-]
+dependencies = []
 
 dynamic = ["version"]
 
