@@ -225,7 +225,7 @@ def copy_notebooks(app, config):
     dst_dir = Path(__file__).parent / "source" / "notebooks"
     dst_dir.mkdir(parents=True, exist_ok=True)
 
-    for nb in src_dir.glob("*.ipynb"):
+    for nb in src_dir.glob("*"):
         shutil.copy(nb, dst_dir / nb.name)
 
 def setup(app):

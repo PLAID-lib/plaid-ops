@@ -72,7 +72,7 @@ docs/source/notebooks/*
 
 # Jupyter Notebook
 .ipynb_checkpoints
-notebooks/*.png
+# notebooks/*.png
 notebooks/*.yaml
 
 
