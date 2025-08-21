@@ -40,6 +40,7 @@ def update_sample_with_sdf(
     sample: Sample,
     base_name: Optional[str] = None,
     zone_name: Optional[str] = None,
+    in_place: Optional[bool] = False,
     time: Optional[float] = None,
 ) -> Sample:
     """Update a Sample by computing and adding the signed distance function (SDF) field.
@@ -51,11 +52,14 @@ def update_sample_with_sdf(
         sample (Sample): The input Sample to update.
         base_name (Optional[str]): Name of the base to select. If None, all bases are used.
         zone_name (Optional[str]): Name of the zone to select. If None, all zones are used.
+        in_place (Optional[bool]): If True, .
         time (Optional[float]): Simulation time to extract the mesh. If None, use default.
 
     Returns:
         Sample: The updated Sample containing the new "sdf" field.
     """
+    if not in_place:
+        sample = sample.copy()
     sdf = compute_sdf(sample, base_name, zone_name, time)
     sample.add_field(
         "sdf",
