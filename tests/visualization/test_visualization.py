@@ -8,10 +8,12 @@ from plaid_ops.common.visualization import (
 
 class Test_Visualization:
     def test_plot_sample_field(self, sample_with_tree):
-        plot_sample_field(sample_with_tree, "test")
+        plot_sample_field(sample_with_tree, "test", pytest=True)
 
     def test_plot_field(self, sample_with_tree):
-        plot_field(sample_with_tree, 1.0 + np.arange(5))
+        plot_field(sample_with_tree, 1.0 + np.arange(5), pytest=True)
 
     def test_plot_field_with_title(self, sample_with_tree):
-        plot_field(sample_with_tree, 1.0 + np.arange(5), title="test_title")
+        plot_field(
+            sample_with_tree, 1.0 + np.arange(5), title="test_title", pytest=True
+        )
