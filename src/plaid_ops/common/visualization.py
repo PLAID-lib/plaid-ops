@@ -16,6 +16,9 @@ def _generate_pyvista_mesh(
 ):
     baseNames = [base_name] if base_name is not None else None
     zoneNames = [zone_name] if zone_name is not None else None
+
+    muscat_mesh = CGNSToMesh(sample.get_mesh())
+
     muscat_mesh = CGNSToMesh(
         sample.get_mesh(time), baseNames=baseNames, zoneNames=zoneNames
     )
