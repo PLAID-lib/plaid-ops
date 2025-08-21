@@ -22,6 +22,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
+      - name: Install OSMesa
+        run: sudo apt-get install -y libosmesa6-dev
+
       - name: Set up Conda with Mamba
         uses: conda-incubator/setup-miniconda@v2
         with:
