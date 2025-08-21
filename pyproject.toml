@@ -32,7 +32,9 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
 
-dependencies = []
+dependencies = [
+    "pyplaid @ git+https://github.com/PLAID-lib/plaid.git@b6d67d18cd25f9434165bd4c289cece78db24ca9",
+]
 
 dynamic = ["version"]
 
