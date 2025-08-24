@@ -8,16 +8,6 @@ from plaid.containers.dataset import Dataset
 from plaid.containers.sample import Sample
 from plaid.types import CGNSTree
 
-# from plaid.examples import datasets, samples
-
-# @pytest.fixture()
-# def dataset():
-#     return datasets.tensile2d
-
-# @pytest.fixture()
-# def sample():
-#     return samples.tensile2d
-
 
 @pytest.fixture()
 def nodes():
