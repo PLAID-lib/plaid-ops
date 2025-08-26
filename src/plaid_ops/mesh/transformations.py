@@ -127,7 +127,7 @@ def project_on_regular_grid(
     return projected_dataset
 
 
-def project_on_other_datset(
+def project_on_other_dataset(
     dataset_source: Dataset,
     dataset_target: Dataset,
     base_name: Optional[str] = None,
