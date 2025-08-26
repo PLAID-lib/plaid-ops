@@ -6,21 +6,20 @@ import pyvista as pv
 from Muscat.Bridges.CGNSBridge import CGNSToMesh
 from Muscat.Bridges.PyVistaBridge import MeshToPyVista
 from plaid.containers.sample import Sample
-from plaid.types import FieldType
+from plaid.types import Field
 
 pv.OFF_SCREEN = True
 
 
 def _generate_pyvista_mesh(
     sample: Sample,
+    time: Optional[float] = None,
     base_name: Optional[str] = None,
     zone_name: Optional[str] = None,
-    time: Optional[float] = None,
 ):
-    baseNames = [base_name] if base_name is not None else None
     zoneNames = [zone_name] if zone_name is not None else None
-
-    muscat_mesh = CGNSToMesh(sample.get_mesh())
+    baseNames = [base_name] if base_name is not None else None
+    time = time if time is not None else 0.0
 
     muscat_mesh = CGNSToMesh(
         sample.get_mesh(time), baseNames=baseNames, zoneNames=zoneNames
@@ -46,10 +45,10 @@ def plot_sample_field(
 
 def plot_field(
     sample: Sample,
-    field: FieldType,
+    field: Field,
+    time: Optional[float] = None,
     base_name: Optional[str] = None,
     zone_name: Optional[str] = None,
-    time: Optional[float] = None,
     title: Optional[str] = None,
     pytest: Optional[bool] = False,
     **kwargs,
@@ -57,7 +56,7 @@ def plot_field(
     """Plot a given field using a sample geometrical support."""
     sample_ = sample.copy()
     sample_.del_all_fields()
-    pv_mesh = _generate_pyvista_mesh(sample_, base_name, zone_name, time)
+    pv_mesh = _generate_pyvista_mesh(sample_, time, base_name, zone_name)
 
     plotter = pv.Plotter()
     plotter.view_xy()

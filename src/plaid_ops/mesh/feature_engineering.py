@@ -6,7 +6,7 @@ from Muscat.Bridges.CGNSBridge import CGNSToMesh
 from Muscat.MeshTools.MeshTools import ComputeSignedDistance
 from plaid.containers.dataset import Dataset
 from plaid.containers.sample import Sample
-from plaid.types import FieldType
+from plaid.types import Field
 from tqdm import tqdm
 
 
@@ -15,7 +15,7 @@ def compute_sdf(
     base_name: Optional[str] = None,
     zone_name: Optional[str] = None,
     time: Optional[float] = None,
-) -> FieldType:
+) -> Field:
     """Compute the signed distance function (SDF) on a mesh extracted from a Sample.
 
     This function converts a CGNS mesh into a working mesh, optionally selecting
@@ -28,7 +28,7 @@ def compute_sdf(
         time (Optional[float]): Simulation time to extract the mesh. If None, use default.
 
     Returns:
-        FieldType: The computed signed distance function field.
+        Field: The computed signed distance function field.
     """
     baseNames = [base_name] if base_name is not None else None
     zoneNames = [zone_name] if zone_name is not None else None
