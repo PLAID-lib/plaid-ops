@@ -9,7 +9,7 @@ dependencies:
   - pip
   - pip:
 ##### RUN #####
-    - git+https://github.com/PLAID-lib/plaid.git@815b8623f2414b0a1f231486a61f13d634c1b7e7
+    - git+https://github.com/PLAID-lib/plaid.git@848a208dbd535ae786fb3c3fd388907a98186441
 ##### DEV #####
 #---# testing
     - pytest

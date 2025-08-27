@@ -33,7 +33,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "pyplaid @ git+https://github.com/PLAID-lib/plaid.git@b6d67d18cd25f9434165bd4c289cece78db24ca9",
+    "pyplaid @ git+https://github.com/PLAID-lib/plaid.git@848a208dbd535ae786fb3c3fd388907a98186441",
 ]
 
 dynamic = ["version"]
