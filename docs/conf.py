@@ -80,6 +80,7 @@ intersphinx_mapping = {
     # 'dgl': ('https://docs.dgl.ai/', None),
     # 'torch_geometric': ('https://pytorch-geometric.readthedocs.io/en/latest/', None),
     'plaid': ('https://plaid-lib.readthedocs.io/en/stable/', None),
+    'muscat': ('https://muscat.readthedocs.io/en/stable/', None),
 }
 # sphinx.ext.extlinks options
 extlinks_detect_hardcoded_links = True
