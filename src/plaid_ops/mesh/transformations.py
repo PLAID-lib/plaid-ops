@@ -1,4 +1,4 @@
-"""Module implmenting some transformations on datasets."""
+"""Module implementing some transformations on datasets."""
 
 from typing import Optional, Sequence, Tuple
 
@@ -12,23 +12,43 @@ from Muscat.MeshTools.MeshFieldOperations import GetFieldTransferOp
 from plaid.containers.dataset import Dataset
 from plaid.containers.sample import Sample
 from plaid.types import Array
+from plaid.utils.stats import OnlineStatistics
 from tqdm import tqdm
 
 
 def compute_bounding_box(
     dataset: Dataset,
-    base_name: Optional[str] = None,
+    times: Optional[Sequence] = None,
+    base_names: Optional[Sequence[str]] = None,
+    zone_names: Optional[Sequence[str]] = None,
 ) -> Tuple[Array, Array]:
-    """Compute a bonding box over all the samples of a dataset."""
-    _id = dataset.get_sample_ids()[0]
-    first_nodes = dataset[_id].get_nodes(base_name=base_name)
-    mins = np.min(first_nodes, axis=0)
-    maxs = np.max(first_nodes, axis=0)
+    """Compute the axis-aligned bounding box over all nodes in all samples of a dataset.
+
+    Args:
+        dataset (Dataset): The dataset containing samples with mesh nodes.
+        times (Optional[Sequence], optional): Specific times to consider. If None, uses all available times.
+        base_names (Optional[Sequence[str]], optional): The base names of the meshes to use. If None, uses all available bases.
+        zone_names (Optional[Sequence[str]], optional): The zone names of the meshes to use. If None, uses all available zones.
+
+    Returns:
+        Tuple[Array, Array]: A tuple (mins, maxs) where mins is the minimum coordinate values and maxs is the maximum coordinate values across all nodes in the dataset.
+    """
+    stats = OnlineStatistics()
     for sample in dataset:
-        for time in sample.get_all_mesh_times():
-            nodes = sample.get_nodes(base_name=base_name, time=time)
-            mins = np.minimum(mins, nodes.min(axis=0))
-            maxs = np.maximum(maxs, nodes.max(axis=0))
+        mesh_times = times if times is not None else sample.get_all_mesh_times()
+        for time in mesh_times:
+            base_names_iter = base_names or sample.get_base_names(time=time)
+            for base_name in base_names_iter:
+                zone_names_iter = zone_names or sample.get_zone_names(
+                    time=time, base_name=base_name, unique=True
+                )
+                for zone_name in zone_names_iter:
+                    nodes = sample.get_nodes(
+                        time=time, base_name=base_name, zone_name=zone_name
+                    )
+                    stats.add_samples(nodes)
+    mins = stats.min.squeeze()
+    maxs = stats.max.squeeze()
     return (mins, maxs)
 
 
@@ -41,15 +61,29 @@ def project_on_regular_grid(
     method: Optional[str] = "Interp/Clamp",
     verbose: Optional[bool] = False,
 ) -> Dataset:
-    """Project all the samples of a dataset on a regular grid.
+    """Project all samples of a dataset onto a regular rectilinear grid.
 
-    The available methods are:
+    This function creates a regular grid defined by the given dimensions and bounding box,
+    and projects all fields from each sample in the dataset onto this grid using the specified method.
 
-    - "Interp/Nearest"
-    - "Nearest/Nearest"
-    - "Interp/Clamp"
-    - "Interp/Extrap"
-    - "Interp/ZeroFill".
+    The available projection methods are:
+        - "Interp/Nearest"
+        - "Nearest/Nearest"
+        - "Interp/Clamp"
+        - "Interp/Extrap"
+        - "Interp/ZeroFill"
+
+    Args:
+        dataset (Dataset): The dataset containing samples to project.
+        dimensions (Sequence[int]): Number of grid points along each axis (e.g., [nx, ny, nz]).
+        bbox (Sequence[Array]): Bounding box as (mins, maxs), where each is an array of coordinates.
+        base_name (Optional[str], optional): Name of the mesh base to use. If None, uses all bases.
+        zone_name (Optional[str], optional): Name of the mesh zone to use. If None, uses all zones.
+        method (Optional[str], optional): Projection method. Defaults to "Interp/Clamp".
+        verbose (Optional[bool], optional): If True, shows progress bar. Defaults to False.
+
+    Returns:
+        Dataset: A new dataset with all samples projected onto the regular grid.
     """
     dims = tuple(dimensions)
 
@@ -93,11 +127,9 @@ def project_on_regular_grid(
                 sample.get_mesh(time=time), baseNames=baseNames, zoneNames=zoneNames
             )
 
-            space, numberings, offset, NGauss = PrepareFEComputation(
-                mesh, numberOfComponents=1
-            )
+            space, numberings, _, _ = PrepareFEComputation(mesh, numberOfComponents=1)
             field = FEField("", mesh=mesh, space=space, numbering=numberings[0])
-            op, status, entities = GetFieldTransferOp(
+            op, _, _ = GetFieldTransferOp(
                 field,
                 background_mesh.nodes,
                 method=method,
@@ -136,15 +168,30 @@ def project_on_other_dataset(
     verbose: Optional[bool] = False,
     in_place: Optional[bool] = False,
 ) -> Dataset:
-    """Project all the samples of a dataset on the geometrical supports from another dataset.
+    """Project all samples of a source dataset onto the mesh geometry of a target dataset.
 
-    The available methods are:
+    For each sample (with matching sample id and time) in `dataset_source` and `dataset_target`,
+    this function transfers all nodal fields from the source mesh to the target mesh using the specified method.
+    The mesh geometry of the target dataset is preserved, but its nodal fields are replaced by the projected fields from the source.
 
-    - "Interp/Nearest"
-    - "Nearest/Nearest"
-    - "Interp/Clamp"
-    - "Interp/Extrap"
-    - "Interp/ZeroFill".
+    The available projection methods are:
+        - "Interp/Nearest"
+        - "Nearest/Nearest"
+        - "Interp/Clamp"
+        - "Interp/Extrap"
+        - "Interp/ZeroFill"
+
+    Args:
+        dataset_source (Dataset): The dataset providing the source fields and meshes.
+        dataset_target (Dataset): The dataset providing the target mesh geometry.
+        base_name (Optional[str], optional): Name of the mesh base to use. If None, uses all bases.
+        zone_name (Optional[str], optional): Name of the mesh zone to use. If None, uses all zones.
+        method (Optional[str], optional): Projection method. Defaults to "Interp/Clamp".
+        verbose (Optional[bool], optional): If True, shows progress bar. Defaults to False.
+        in_place (Optional[bool], optional): If True, modifies `dataset_target` in place. If False, works on a copy.
+
+    Returns:
+        Dataset: The target dataset with nodal fields replaced by the projected fields from the source dataset.
     """
     assert np.allclose(
         dataset_source.get_sample_ids(), dataset_target.get_sample_ids()
@@ -181,11 +228,11 @@ def project_on_other_dataset(
 
             sample_target.del_tree(time)
 
-            space, numberings, offset, NGauss = PrepareFEComputation(
+            space, numberings, _, _ = PrepareFEComputation(
                 mesh_source, numberOfComponents=1
             )
             field = FEField("", mesh=mesh_source, space=space, numbering=numberings[0])
-            op, status, entities = GetFieldTransferOp(
+            op, _, _ = GetFieldTransferOp(
                 field,
                 mesh_target.nodes,
                 method=method,
