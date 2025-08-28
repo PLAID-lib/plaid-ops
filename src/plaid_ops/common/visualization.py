@@ -17,6 +17,17 @@ def _generate_pyvista_mesh(
     base_name: Optional[str] = None,
     zone_name: Optional[str] = None,
 ):
+    """Generate a PyVista mesh from a Sample.
+
+    Args:
+        sample (Sample): The input Sample containing the mesh data.
+        time (Optional[float], optional): The simulation time to extract the mesh. Defaults to None.
+        base_name (Optional[str], optional): The base name to use when extracting the mesh. Defaults to None.
+        zone_name (Optional[str], optional): The zone name to use when extracting the mesh. Defaults to None.
+
+    Returns:
+        pv.PolyData: The generated PyVista mesh.
+    """
     zoneNames = [zone_name] if zone_name is not None else None
     baseNames = [base_name] if base_name is not None else None
     time = time if time is not None else 0.0
@@ -36,7 +47,20 @@ def plot_sample_field(
     title: Optional[str] = None,
     **kwargs,
 ) -> pv.pyvista_ndarray:
-    """Plot a sample field."""
+    """Plot a field from a sample using PyVista.
+
+    Args:
+        sample (Sample): The input Sample containing mesh and field data.
+        field_name (str): The name of the field to plot.
+        base_name (Optional[str], optional): The base name for mesh extraction. Defaults to None.
+        zone_name (Optional[str], optional): The zone name for mesh extraction. Defaults to None.
+        time (Optional[float], optional): The simulation time to extract the field. Defaults to None.
+        title (Optional[str], optional): The title for the plot. Defaults to None.
+        **kwargs: Additional keyword arguments passed to `plot_field`.
+
+    Returns:
+        pv.pyvista_ndarray: The rendered image as a NumPy array.
+    """
     field = sample.get_field(
         name=field_name, base_name=base_name, zone_name=zone_name, time=time
     )
@@ -53,7 +77,21 @@ def plot_field(
     pytest: Optional[bool] = False,
     **kwargs,
 ) -> pv.pyvista_ndarray:
-    """Plot a given field using a sample geometrical support."""
+    """Plot a given field using a sample geometrical support.
+
+    Args:
+        sample (Sample): The input Sample containing mesh and field data.
+        field (Field): The field to plot.
+        time (Optional[float], optional): The simulation time to extract the field. Defaults to None.
+        base_name (Optional[str], optional): The base name for mesh extraction. Defaults to None.
+        zone_name (Optional[str], optional): The zone name for mesh extraction. Defaults to None.
+        title (Optional[str], optional): The title for the plot. Defaults to None.
+        pytest (Optional[bool], optional): If True, runs the plot in pytest mode. Defaults to False.
+        **kwargs: Additional keyword arguments passed to `pv.Plotter.add_mesh`.
+
+    Returns:
+        pv.pyvista_ndarray: The rendered image as a NumPy array.
+    """
     sample_ = sample.copy()
     sample_.del_all_fields()
     pv_mesh = _generate_pyvista_mesh(sample_, time, base_name, zone_name)
