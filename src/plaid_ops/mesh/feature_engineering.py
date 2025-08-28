@@ -16,19 +16,20 @@ def compute_sdf(
     zone_name: Optional[str] = None,
     time: Optional[float] = None,
 ) -> Field:
-    """Compute the signed distance function (SDF) on a mesh extracted from a Sample.
+    """Compute the signed distance function (SDF) for a mesh extracted from a Sample.
 
-    This function converts a CGNS mesh into a working mesh, optionally selecting
-    specific bases or zones, and then computes the signed distance function on it.
+    This function extracts the mesh from the given Sample (optionally at a specific time,
+    base, or zone), converts it to a working :ref:`Muscat.MeshContainers.Mesh.Mesh` mesh, and computes the signed distance
+    function (SDF) at each mesh node.
 
     Args:
         sample (Sample): The input Sample containing the mesh and fields.
         base_name (Optional[str]): Name of the base to select. If None, all bases are used.
         zone_name (Optional[str]): Name of the zone to select. If None, all zones are used.
-        time (Optional[float]): Simulation time to extract the mesh. If None, use default.
+        time (Optional[float]): Simulation time to extract the mesh. If None, uses default.
 
     Returns:
-        Field: The computed signed distance function field.
+        Field: The computed signed distance function values at mesh nodes.
     """
     baseNames = [base_name] if base_name is not None else None
     zoneNames = [zone_name] if zone_name is not None else None
@@ -45,18 +46,18 @@ def update_sample_with_sdf(
 ) -> Sample:
     """Update a Sample by computing and adding the signed distance function (SDF) field.
 
-    This function computes the SDF for the given Sample and attaches it as a new field
-    named "sdf" on the selected base/zone and vertices.
+    Computes the SDF for the mesh in the given Sample and adds it as a new field named "sdf"
+    at the vertex location for the specified base and zone. Optionally operates in-place.
 
     Args:
         sample (Sample): The input Sample to update.
         base_name (Optional[str]): Name of the base to select. If None, all bases are used.
         zone_name (Optional[str]): Name of the zone to select. If None, all zones are used.
-        in_place (Optional[bool]): If True, .
-        time (Optional[float]): Simulation time to extract the mesh. If None, use default.
+        in_place (Optional[bool]): If True, modifies the Sample in-place. If False, works on a copy.
+        time (Optional[float]): Simulation time to extract the mesh. If None, uses default.
 
     Returns:
-        Sample: The updated Sample containing the new "sdf" field.
+        Sample: The Sample with the new "sdf" field added.
     """
     if not in_place:
         sample = sample.copy()
@@ -80,7 +81,18 @@ def update_dataset_with_sdf(
     in_place: Optional[bool] = False,
     verbose: Optional[bool] = False,
 ) -> Dataset:
-    """Function to update a dataset with a computed signed distancs function."""
+    """Update a dataset by computing and adding the Signed Distance Function (SDF) field for each sample and mesh time.
+
+    Args:
+        dataset (Dataset): The dataset to update. If `in_place` is False, a copy will be modified and returned.
+        base_name (Optional[str], optional): The base name to use when computing the SDF. If None, all bases are used. The SDF is computed using the `compute_sdf` function for each sample and mesh time.
+        zone_name (Optional[str], optional): The zone name to use when computing the SDF. If None, all zones are used.
+        in_place (Optional[bool], optional): If True, modifies the dataset in place. If False, works on a copy. Defaults to False.
+        verbose (Optional[bool], optional): If True, displays a progress bar during processing. Defaults to False.
+
+    Returns:
+        Dataset: The updated dataset with the SDF field (named "sdf" at the "Vertex" location) added to each sample for each mesh time. Existing fields are not overwritten (`warning_overwrite=False`).
+    """
     if not in_place:
         dataset = dataset.copy()
     for sample in tqdm(dataset, total=len(dataset), disable=not verbose):
