@@ -81,6 +81,7 @@ intersphinx_mapping = {
     # 'torch_geometric': ('https://pytorch-geometric.readthedocs.io/en/latest/', None),
     'plaid': ('https://plaid-lib.readthedocs.io/en/stable/', None),
     'muscat': ('https://muscat.readthedocs.io/en/stable/', None),
+    'pyvista': ('https://docs.pyvista.org/', None),
 }
 # sphinx.ext.extlinks options
 extlinks_detect_hardcoded_links = True
