@@ -74,11 +74,12 @@ intersphinx_mapping = {
     "pytest": ("https://pytest.org/en/stable/", None),
     # 'ipykernel': ('https://ipykernel.readthedocs.io/en/latest/', None),
     "numpy": ("https://numpy.org/doc/stable/", None),
-    # 'scipy': ('https://docs.scipy.org/doc/scipy/', None),
+    'scipy': ('https://docs.scipy.org/doc/scipy/', None),
     # 'matplotlib': ('http://matplotlib.org/', None),
     # 'torch': ('https://pytorch.org/docs/stable/', None),
     # 'dgl': ('https://docs.dgl.ai/', None),
     # 'torch_geometric': ('https://pytorch-geometric.readthedocs.io/en/latest/', None),
+    'plaid': ('https://plaid-lib.readthedocs.io/en/stable/', None),
 }
 # sphinx.ext.extlinks options
 extlinks_detect_hardcoded_links = True
