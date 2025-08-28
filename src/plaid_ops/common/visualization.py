@@ -16,7 +16,7 @@ def _generate_pyvista_mesh(
     time: Optional[float] = None,
     base_name: Optional[str] = None,
     zone_name: Optional[str] = None,
-):
+) -> pv.PolyData:
     """Generate a PyVista mesh from a Sample.
 
     Args:
