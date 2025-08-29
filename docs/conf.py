@@ -19,6 +19,7 @@ import datetime
 import os
 import subprocess
 import sys
+import shutil
 from pathlib import Path
 
 sys.path.insert(0, ".")
@@ -73,11 +74,14 @@ intersphinx_mapping = {
     "pytest": ("https://pytest.org/en/stable/", None),
     # 'ipykernel': ('https://ipykernel.readthedocs.io/en/latest/', None),
     "numpy": ("https://numpy.org/doc/stable/", None),
-    # 'scipy': ('https://docs.scipy.org/doc/scipy/', None),
+    'scipy': ('https://docs.scipy.org/doc/scipy/', None),
     # 'matplotlib': ('http://matplotlib.org/', None),
     # 'torch': ('https://pytorch.org/docs/stable/', None),
     # 'dgl': ('https://docs.dgl.ai/', None),
     # 'torch_geometric': ('https://pytorch-geometric.readthedocs.io/en/latest/', None),
+    'plaid': ('https://plaid-lib.readthedocs.io/en/stable/', None),
+    'muscat': ('https://muscat.readthedocs.io/en/stable/', None),
+    'pyvista': ('https://docs.pyvista.org/', None),
 }
 # sphinx.ext.extlinks options
 extlinks_detect_hardcoded_links = True
@@ -158,6 +162,9 @@ autoapi_python_class_content = "both"  # default is 'class'
 #     #     - Functions
 #     #     - Methods
 
+nb_execution_mode = 'auto'
+nb_execution_timeout = 300
+
 numfig = True
 
 # -----------------------------------------------------------------------------#
@@ -212,6 +219,20 @@ github_url = "https://github.com/PLAID-lib/plaid-ops"
 # As these files are not meant to be built, they are automatically
 # excluded from source files.
 # html_extra_path = ['_extra']
+
+
+# -----------------------------------------------------------------------------#
+
+def copy_notebooks(app, config):
+    src_dir = Path(__file__).parent.parent / "notebooks"   # adjust path
+    dst_dir = Path(__file__).parent / "source" / "notebooks"
+    dst_dir.mkdir(parents=True, exist_ok=True)
+
+    for nb in src_dir.glob("*"):
+        shutil.copy(nb, dst_dir / nb.name)
+
+def setup(app):
+    app.connect("config-inited", copy_notebooks)
 
 
 # -----------------------------------------------------------------------------#

@@ -22,17 +22,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Set up Conda with Mamba
-        uses: conda-incubator/setup-miniconda@v3
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v2
         with:
-          use-mamba: true
+          use-mamba: false
+          python-version: 3.11
           auto-activate-base: false
           miniforge-variant: Miniforge3
 
       - name: Create environment
         run: |
           conda create -n plaid-ops python=3.11 muscat=2.5.0 -c conda-forge
-          conda run -n plaid-ops pip install -e .[dev]
+          conda run -n plaid-ops python -m pip install -e .[dev]
+
 
       - name: Compile documentation
         run: |

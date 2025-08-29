@@ -39,9 +39,10 @@ The code is hosted on `GitHub <https://github.com/PLAID-lib/plaid-ops>`_
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: API Documentation
+   :caption: Documentation
 
-   Autoapi <autoapi/plaid_ops/index>
+   API Reference <autoapi/plaid_ops/index>
+   Examples & Tutorials <source/notebooks.rst>
 
 
 Indices and tables

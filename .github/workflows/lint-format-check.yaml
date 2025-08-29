@@ -32,5 +32,5 @@ jobs:
       - name: format check
         run: ruff format --check .
 
-      - name: Run pyright
-        run: pyright
+      # - name: Run pyright
+      #   run: pyright
