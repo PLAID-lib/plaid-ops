@@ -10,7 +10,7 @@ description = "Mesh operations for PLAID datasets"
 authors = [
     { name = "Safran", email = "fabien.casenave@safrangroup.com" }
 ]
-requires-python = ">=3.9, <3.14"
+requires-python = ">=3.9, <3.13"
 keywords=[
     "machine learning",
     "physics",
@@ -27,14 +27,13 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
 
 dependencies = [
-    "plaid==0.1.7",
+    "pyplaid @ git+https://github.com/PLAID-lib/plaid.git",
 ]
 
 dynamic = ["version"]

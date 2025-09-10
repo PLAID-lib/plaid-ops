@@ -4,11 +4,12 @@ channels:
   - nodefaults
 dependencies:
   - python=3.11
-  - muscat=2.5.0
 ##### RUN #####
+  - muscat=2.5.0
   - pip
   - pip:
-    - pyplaid==0.1.7
+##### RUN #####
+    - git+https://github.com/PLAID-lib/plaid.git
 ##### DEV #####
 #---# testing
     - pytest

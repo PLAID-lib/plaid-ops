@@ -1,5 +1,9 @@
 line-length = 88
 
+exclude = [
+  "docs",
+]
+
 [lint]
 select = [
   "D",
