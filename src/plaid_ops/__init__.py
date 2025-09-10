@@ -1,1 +1,1 @@
-"""Module that implements PLAID ops."""
+"""Package that implement standardized operations for plaid datasets."""

@@ -1,4 +1,4 @@
-"""Module implementing some transformations on datasets."""
+"""Module implementing standardized transformations on plaid datasets."""
 
 from typing import Optional, Sequence, Tuple
 
@@ -58,8 +58,8 @@ def project_on_regular_grid(
     bbox: Sequence[Array],
     base_name: Optional[str] = None,
     zone_name: Optional[str] = None,
-    method: Optional[str] = "Interp/Clamp",
-    verbose: Optional[bool] = False,
+    method: str = "Interp/Clamp",
+    verbose: bool = False,
 ) -> Dataset:
     """Project all samples of a dataset onto a regular rectilinear grid.
 
@@ -164,9 +164,9 @@ def project_on_other_dataset(
     dataset_target: Dataset,
     base_name: Optional[str] = None,
     zone_name: Optional[str] = None,
-    method: Optional[str] = "Interp/Clamp",
-    verbose: Optional[bool] = False,
-    in_place: Optional[bool] = False,
+    method: str = "Interp/Clamp",
+    verbose: bool = False,
+    in_place: bool = False,
 ) -> Dataset:
     """Project all samples of a source dataset onto the mesh geometry of a target dataset.
 
