@@ -8,8 +8,6 @@ from Muscat.Bridges.PyVistaBridge import MeshToPyVista
 from plaid.containers.sample import Sample
 from plaid.types import Field
 
-# pv.OFF_SCREEN = True
-
 
 def _generate_pyvista_mesh(
     sample: Sample,

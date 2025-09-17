@@ -19,7 +19,7 @@ def compute_sdf(
     """Compute the signed distance function (SDF) for a mesh extracted from a Sample.
 
     This function extracts the mesh from the given Sample (optionally at a specific time,
-    base, or zone), converts it to a working :ref:`Muscat.MeshContainers.Mesh.Mesh` mesh, and computes the signed distance
+    base, or zone), converts it to a working Muscat mesh, and computes the signed distance
     function (SDF) at each mesh node.
 
     Args:

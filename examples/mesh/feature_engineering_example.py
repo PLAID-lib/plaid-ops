@@ -20,8 +20,11 @@
 # This notebook illustrates some feature engineering capabilities provided by plaid-ops.
 
 # %%
+import os
 import pyvista as pv
 pv.set_jupyter_backend('static')
+
+os.environ["PYVISTA_OFF_SCREEN"] = "true"
 
 import logging
 logging.disable(logging.CRITICAL)

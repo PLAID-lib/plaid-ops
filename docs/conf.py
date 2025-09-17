@@ -72,6 +72,7 @@ extensions = [
     "sphinx.ext.graphviz",
     "myst_nb",
     "sphinx.ext.autosummary",
+    "sphinx.ext.intersphinx",
     # "sphinxcontrib.bibtex", # not installed
     # "sphinx_tabs.tabs", # not installed
 ]
