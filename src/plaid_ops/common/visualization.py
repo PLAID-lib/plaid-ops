@@ -100,4 +100,4 @@ def plot_field(
     if not interactive:
         return plotter.show(screenshot=True, auto_close=True)
 
-    plotter.show()
+    plotter.show()  # pragma: no cover (cannot run in gitlab-ci)

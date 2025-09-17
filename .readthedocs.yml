@@ -12,6 +12,10 @@ conda:
 
 build:
   os: "ubuntu-24.04"
+  apt_packages:
+    - libgl1
+    - mesa-utils
+    - xvfb
   tools:
     python: "mambaforge-latest"
   # -------------------------------------------------------------------
@@ -22,12 +26,12 @@ build:
   #     - git fetch origin --unshallow
   #     - git rev-list --count HEAD
 
-apt_packages:
-  - libgl1
-  - mesa-utils
-  - xvfb
-
 python:
   install:
     - method: pip
       path: .
+
+      build:
+  apt_packages:
+    - libclang
+    - cmake
