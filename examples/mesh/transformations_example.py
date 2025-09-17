@@ -27,9 +27,6 @@ logging.disable(logging.CRITICAL)
 
 import numpy as np
 from datasets import load_dataset
-from IPython.display import Image as IPyImage
-from IPython.display import display
-from PIL import Image as PILImage
 from plaid.bridges.huggingface_bridge import (
     huggingface_dataset_to_plaid,
     huggingface_description_to_problem_definition,
@@ -48,7 +45,7 @@ hf_dataset = load_dataset(
 
 pb_def = huggingface_description_to_problem_definition(hf_dataset.info.description)
 ids = pb_def.get_split("DOE_train")[:2]
-dataset, _ = huggingface_dataset_to_plaid(hf_dataset, ids=ids, processes_number=2)
+dataset, _ = huggingface_dataset_to_plaid(hf_dataset, ids=ids, processes_number=2, verbose=False)
 
 # %% [markdown]
 # ## Dataset-wide projection on a constant rectilinear mesh
@@ -56,7 +53,7 @@ dataset, _ = huggingface_dataset_to_plaid(hf_dataset, ids=ids, processes_number=
 # We start by illustrating the `u1` field from the first sample:
 
 # %%
-plot_sample_field(
+array_img = plot_sample_field(
     dataset[ids[0]],
     "u1",
     title="Unstructured mesh",
@@ -72,10 +69,10 @@ plot_sample_field(
 bbox = compute_bounding_box(dataset)
 dims = [101, 101]
 projected_dataset = project_on_regular_grid(
-    dataset, dimensions=dims, bbox=bbox, verbose=True
+    dataset, dimensions=dims, bbox=bbox, verbose=False
 )
 
-plot_sample_field(
+array_img = plot_sample_field(
     projected_dataset[ids[0]],
     "u1",
     title="Projection on regular grid mesh",
@@ -89,10 +86,10 @@ plot_sample_field(
 
 # %%
 inv_projected_dataset = project_on_other_dataset(
-    projected_dataset, dataset, verbose=True
+    projected_dataset, dataset, verbose=False
 )
 
-plot_sample_field(
+array_img = plot_sample_field(
     inv_projected_dataset[ids[0]],
     "u1",
     title="Projection back to inital mesh",
@@ -109,7 +106,7 @@ error_1 = inv_projected_dataset[ids[0]].get_field("u1") - dataset[ids[0]].get_fi
     "u1"
 )
 
-plot_field(
+array_img = plot_field(
     dataset[ids[0]],
     field=error_1,
     title="u1 error from projection and inverse projection",
@@ -165,7 +162,7 @@ naive_inv_proj_u1 = naive_proj_u1[id_origin_nodes]
 
 error_2 = naive_inv_proj_u1 - dataset[ids[0]].get_field("u1")
 
-plot_field(
+array_img = plot_field(
     dataset[ids[0]],
     field=error_2,
     title="u1 error from naive projection and inverse projection",

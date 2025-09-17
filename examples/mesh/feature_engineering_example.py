@@ -27,9 +27,6 @@ import logging
 logging.disable(logging.CRITICAL)
 
 from datasets import load_dataset
-from IPython.display import Image as IPyImage
-from IPython.display import display
-from PIL import Image as PILImage
 from plaid.bridges.huggingface_bridge import (
     huggingface_dataset_to_plaid,
     huggingface_description_to_problem_definition,
@@ -47,7 +44,7 @@ hf_dataset = load_dataset(
 )
 pb_def = huggingface_description_to_problem_definition(hf_dataset.info.description)
 ids = pb_def.get_split("DOE_train")[:2]
-dataset, _ = huggingface_dataset_to_plaid(hf_dataset, ids=ids, processes_number=2)
+dataset, _ = huggingface_dataset_to_plaid(hf_dataset, ids=ids, processes_number=2, verbose=False)
 
 # %% [markdown]
 # ## Dataset-wide signed-distance function computation
@@ -76,7 +73,7 @@ print(
 sample = dataset[ids[0]]
 computed_sdf = compute_sdf(sample)
 
-plot_field(
+array_img = plot_field(
     sample,
     field=computed_sdf,
     title="SDF illustration",
@@ -105,7 +102,7 @@ naive_sdf, _ = kdtree.query(mesh.nodes)
 
 difference_sdf = computed_sdf - naive_sdf
 
-plot_field(
+array_img = plot_field(
     sample,
     field=difference_sdf,
     title="SDF error computation",

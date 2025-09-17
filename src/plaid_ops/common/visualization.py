@@ -46,7 +46,7 @@ def plot_sample_field(
     time: Optional[float] = None,
     title: Optional[str] = None,
     **kwargs,
-) -> None:
+):
     """Plot a field from a sample using PyVista.
 
     Args:
@@ -73,7 +73,7 @@ def plot_field(
     title: Optional[str] = None,
     interactive: Optional[bool] = True,
     **kwargs,
-) -> None:
+):
     """Plot a given field using a sample geometrical support.
 
     Args:
@@ -90,7 +90,7 @@ def plot_field(
     sample_.del_all_fields()
     pv_mesh = _generate_pyvista_mesh(sample_, time, base_name, zone_name)
 
-    plotter = pv.Plotter()
+    plotter = pv.Plotter(off_screen=not interactive)
     plotter.view_xy()
     plotter.add_mesh(pv_mesh, scalars=field, **kwargs)
     plotter.reset_camera()
@@ -99,4 +99,7 @@ def plot_field(
     if title:
         plotter.add_text(title, font_size=12, color="black", position="upper_edge")
 
-    plotter.show(interactive=interactive)
+    if not interactive:
+        return plotter.show(screenshot=True, auto_close=True)
+
+    plotter.show()
