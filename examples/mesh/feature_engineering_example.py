@@ -35,6 +35,7 @@ os.environ["PYVISTA_OFF_SCREEN"] = "true"
 import logging
 logging.disable(logging.CRITICAL)
 
+import numpy as np
 from datasets import load_dataset
 from plaid.bridges.huggingface_bridge import (
     huggingface_dataset_to_plaid,
