@@ -22,6 +22,11 @@ build:
   #     - git fetch origin --unshallow
   #     - git rev-list --count HEAD
 
+apt_packages:
+  - libgl1
+  - mesa-utils
+  - xvfb
+
 python:
   install:
     - method: pip
