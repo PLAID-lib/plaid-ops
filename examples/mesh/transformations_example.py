@@ -141,7 +141,7 @@ background_mesh = CreateConstantRectilinearMesh(
     dimensions=dims, origin=bbox[0], spacing=spacing
 )
 naive_proj_sample = Sample()
-naive_proj_sample.add_tree(MeshToCGNS(background_mesh))
+naive_proj_sample.meshes.add_tree(MeshToCGNS(background_mesh))
 
 mesh = CGNSToMesh(dataset[ids[0]].get_mesh())
 u1 = dataset[ids[0]].get_field("u1")

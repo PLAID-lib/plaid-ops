@@ -84,7 +84,7 @@ def plot_field(
         zone_name (Optional[str], optional): The zone name for mesh extraction. Defaults to None.
         title (Optional[str], optional): The title for the plot. Defaults to None.
         interactive (Optional[bool], optional): If True, make the plot persist on the screen. Defaults to True.
-        **kwargs: Additional keyword arguments passed to `pv.Plotter.add_mesh`.
+        **kwargs: Additional keyword arguments passed to `pv.Plotter.meshes.add_tree`.
     """
     sample_ = sample.copy()
     sample_.del_all_fields()
