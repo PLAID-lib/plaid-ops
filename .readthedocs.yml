@@ -17,11 +17,14 @@ build:
   jobs:
     pre_build:
         - sudo apt-get install -y libgl1 mesa-utils xvfb
-  # -------------------------------------------------------------------
-  # To uncomment when needed (typically when more than 50 commits)
-  # -------------------------------------------------------------------
-  #     - git fetch origin --unshallow
-  #     - git rev-list --count HEAD
+
+# -------------------------------------------------------------------
+# To merge above when needed (typically when more than 50 commits)
+# -------------------------------------------------------------------
+  # jobs:
+  #   pre_build:
+  #   - git fetch origin --unshallow
+  #   - git rev-list --count HEAD
 
 python:
   install:
