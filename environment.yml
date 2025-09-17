@@ -9,7 +9,7 @@ dependencies:
   - pip
   - pip:
 ##### RUN #####
-    - git+https://github.com/PLAID-lib/plaid.git
+    - git+https://github.com/PLAID-lib/plaid.git@b81aa9b5b3119f28062df8e874ee983482a5fde3
 ##### DEV #####
 #---# testing
     - pytest
@@ -24,5 +24,5 @@ dependencies:
     - sphinx-autoapi
     - myst-nb
     - myst-parser
-    - nbconvert
+    - jupytext
     - furo
