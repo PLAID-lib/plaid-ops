@@ -20,7 +20,7 @@
 
 # %%
 import pyvista as pv
-pv.set_jupyter_backend('trame')
+pv.set_jupyter_backend('static')
 
 import logging
 logging.disable(logging.CRITICAL)

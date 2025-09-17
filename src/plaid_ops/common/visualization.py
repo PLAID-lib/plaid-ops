@@ -46,7 +46,7 @@ def plot_sample_field(
     time: Optional[float] = None,
     title: Optional[str] = None,
     **kwargs,
-) -> pv.pyvista_ndarray:
+) -> None:
     """Plot a field from a sample using PyVista.
 
     Args:
@@ -57,9 +57,6 @@ def plot_sample_field(
         time (Optional[float], optional): The simulation time to extract the field. Defaults to None.
         title (Optional[str], optional): The title for the plot. Defaults to None.
         **kwargs: Additional keyword arguments passed to `plot_field`.
-
-    Returns:
-        pv.pyvista_ndarray: The rendered image as a NumPy array.
     """
     field = sample.get_field(
         name=field_name, base_name=base_name, zone_name=zone_name, time=time
@@ -77,7 +74,6 @@ def plot_field(
     interactive: Optional[bool] = True,
     **kwargs,
 ) -> None:
-    # ) -> pv.pyvista_ndarray:
     """Plot a given field using a sample geometrical support.
 
     Args:
@@ -89,9 +85,6 @@ def plot_field(
         title (Optional[str], optional): The title for the plot. Defaults to None.
         interactive (Optional[bool], optional): If True, make the plot persist on the screen. Defaults to True.
         **kwargs: Additional keyword arguments passed to `pv.Plotter.add_mesh`.
-
-    Returns:
-        pv.pyvista_ndarray: The rendered image as a NumPy array.
     """
     sample_ = sample.copy()
     sample_.del_all_fields()
