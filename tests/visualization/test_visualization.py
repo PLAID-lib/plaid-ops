@@ -1,14 +1,11 @@
 import os
 
 import numpy as np
-import pyvista as pv
 
 from plaid_ops.common.visualization import (
     plot_field,
     plot_sample_field,
 )
-
-pv.set_jupyter_backend("static")
 
 os.environ["PYVISTA_OFF_SCREEN"] = "true"
 
