@@ -9,12 +9,6 @@ from plaid_ops.common.visualization import (
 
 os.environ["PYVISTA_OFF_SCREEN"] = "true"
 
-# if os.name != "nt" and "DISPLAY" not in os.environ:
-#     try:
-#         pv.start_xvfb()
-#     except Exception as e:
-#         print("Could not start Xvfb:", e)
-
 
 class Test_Visualization:
     def test_plot_sample_field(self, sample_with_tree):
