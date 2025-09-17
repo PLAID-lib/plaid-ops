@@ -73,6 +73,7 @@ computed_sdf = compute_sdf(sample)
 
 img_name = "feature_engineering_1.png"
 if os.environ.get("READTHEDOCS") == "True" or os.environ.get("GITHUB_ACTIONS"):
+    print(os.getcwd())
     display(IPyImage(filename=img_name))
 else:
     img_array = plot_field(
@@ -108,7 +109,6 @@ difference_sdf = computed_sdf - naive_sdf
 
 img_name = "feature_engineering_2.png"
 if os.environ.get("READTHEDOCS") == "True" or os.environ.get("GITHUB_ACTIONS"):
-    print(os.getcwd())
     display(IPyImage(filename=img_name))
 else:
     img_array = plot_field(
