@@ -12,10 +12,6 @@ conda:
 
 build:
   os: "ubuntu-24.04"
-  apt_packages:
-    - libgl1
-    - mesa-utils
-    - xvfb
   tools:
     python: "mambaforge-latest"
   jobs:
