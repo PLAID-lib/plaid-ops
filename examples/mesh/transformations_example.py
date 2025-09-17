@@ -42,14 +42,6 @@ from plaid.bridges.huggingface_bridge import (
     huggingface_description_to_problem_definition,
 )
 
-from plaid_ops.common.visualization import plot_field, plot_sample_field
-from plaid_ops.mesh.transformations import (
-    compute_bounding_box,
-    project_on_other_dataset,
-    project_on_regular_grid,
-)
-
-# %%
 hf_dataset = load_dataset(
     "PLAID-datasets/2D_Multiscale_Hyperelasticity", split="all_samples"
 )
@@ -57,6 +49,15 @@ hf_dataset = load_dataset(
 pb_def = huggingface_description_to_problem_definition(hf_dataset.info.description)
 ids = pb_def.get_split("DOE_train")[:2]
 dataset, _ = huggingface_dataset_to_plaid(hf_dataset, ids=ids, processes_number=2, verbose=False)
+
+
+# %%
+from plaid_ops.common.visualization import plot_field, plot_sample_field
+from plaid_ops.mesh.transformations import (
+    compute_bounding_box,
+    project_on_other_dataset,
+    project_on_regular_grid,
+)
 
 # %% [markdown]
 # ## Dataset-wide projection on a constant rectilinear mesh

@@ -22,8 +22,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Install packages
-        run: sudo apt-get install -y libgl1 mesa-utils libhdf5-dev
+      # - name: Install packages
+      #   run: sudo apt-get install -y libgl1 mesa-utils
 
       - name: Set up Conda
         uses: conda-incubator/setup-miniconda@v2
@@ -35,7 +35,7 @@ jobs:
 
       - name: Create environment
         run: |
-          conda create -n plaid-ops python=3.11 muscat-core=2.5 -c conda-forge
+          conda create -n plaid-ops python=3.11 hdf5 muscat-core=2.5 -c conda-forge
           conda run -n plaid-ops python -m pip install -e .[dev]
 
 

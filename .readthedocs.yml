@@ -14,11 +14,10 @@ build:
   os: "ubuntu-24.04"
   tools:
     python: "mambaforge-latest"
-  apt_packages:
-    - libgl1
-    - mesa-utils
-    - libhdf5-dev
-    # - xvfb
+  # apt_packages:
+  #   - libgl1
+  #   - mesa-utils
+  #   - xvfb
 # -------------------------------------------------------------------
 # To merge above when needed (typically when more than 50 commits)
 # -------------------------------------------------------------------
