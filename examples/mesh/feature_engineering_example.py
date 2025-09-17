@@ -21,8 +21,8 @@
 
 # %%
 import os
-# import pyvista as pv
-# pv.set_jupyter_backend('static')
+import pyvista as pv
+pv.set_jupyter_backend('static')
 
 os.environ["PYVISTA_OFF_SCREEN"] = "true"
 
@@ -48,6 +48,7 @@ from plaid_ops.mesh.feature_engineering import (
     update_sample_with_sdf,
 )
 
+# %%
 hf_dataset = load_dataset(
     "PLAID-datasets/2D_Multiscale_Hyperelasticity", split="all_samples"
 )
