@@ -39,7 +39,7 @@ from plaid_ops.mesh.transformations import (
 )
 
 hf_dataset = load_dataset(
-    "PLAID-datasets/2D_Multiscale_Hyperelasticity", split="all_samples"
+    "PLAID-datasets/2D_Multiscale_Hyperelasticity", split="all_samples"Z
 )
 
 pb_def = huggingface_description_to_problem_definition(hf_dataset.info.description)
@@ -54,6 +54,7 @@ dataset, _ = huggingface_dataset_to_plaid(hf_dataset, ids=ids, processes_number=
 # %%
 img_name = "transformation_1.png"
 if os.environ.get("READTHEDOCS") == "True" or os.environ.get("GITHUB_ACTIONS"):
+    print(os.getcwd())
     display(IPyImage(filename=img_name))
 else:
     img_array = plot_sample_field(
