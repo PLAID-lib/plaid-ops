@@ -1,3 +1,7 @@
+import os
+
+os.environ["PYVISTA_OFF_SCREEN"] = "true"
+
 import numpy as np
 
 from plaid_ops.common.visualization import (
