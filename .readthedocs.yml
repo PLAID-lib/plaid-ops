@@ -15,7 +15,7 @@ build:
   tools:
     python: "mambaforge-latest"
   jobs:
-    install::
+    pre_install::
         - apt-get install -y libgl1 mesa-utils xvfb
 
 # -------------------------------------------------------------------
