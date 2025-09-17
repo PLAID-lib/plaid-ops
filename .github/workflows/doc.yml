@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Install Mesa (software OpenGL)
-        run: sudo apt-get install -y libgl1 mesa-utils xvfb
+        run: sudo apt-get install -y libgl1 mesa-utils
 
       - name: Set up Conda
         uses: conda-incubator/setup-miniconda@v2
