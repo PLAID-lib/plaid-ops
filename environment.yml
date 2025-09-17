@@ -26,3 +26,4 @@ dependencies:
     - myst-parser
     - jupytext
     - furo
+    - pyvista[jupyter]

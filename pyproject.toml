@@ -78,4 +78,5 @@ dev = [
     "myst-parser",
     "jupytext",
     "furo",
+    "pyvista[jupyter]",
 ]

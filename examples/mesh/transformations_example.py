@@ -19,7 +19,11 @@
 # This notebook illustrates some transformation capabilities provided by plaid-ops.
 
 # %%
-import os
+import pyvista as pv
+pv.set_jupyter_backend('trame')
+
+import logging
+logging.disable(logging.CRITICAL)
 
 import numpy as np
 from datasets import load_dataset
@@ -39,7 +43,7 @@ from plaid_ops.mesh.transformations import (
 )
 
 hf_dataset = load_dataset(
-    "PLAID-datasets/2D_Multiscale_Hyperelasticity", split="all_samples"Z
+    "PLAID-datasets/2D_Multiscale_Hyperelasticity", split="all_samples"
 )
 
 pb_def = huggingface_description_to_problem_definition(hf_dataset.info.description)
@@ -52,21 +56,14 @@ dataset, _ = huggingface_dataset_to_plaid(hf_dataset, ids=ids, processes_number=
 # We start by illustrating the `u1` field from the first sample:
 
 # %%
-img_name = "transformation_1.png"
-if os.environ.get("READTHEDOCS") == "True" or os.environ.get("GITHUB_ACTIONS"):
-    print(os.getcwd())
-    display(IPyImage(filename=img_name))
-else:
-    img_array = plot_sample_field(
-        dataset[ids[0]],
-        "u1",
-        title="Unstructured mesh",
-        show_edges=True,
-        scalar_bar_args={"title": "u1"},
-    )
-    img = PILImage.fromarray(img_array)
-    img.save(img_name)
-    display(img)
+plot_sample_field(
+    dataset[ids[0]],
+    "u1",
+    title="Unstructured mesh",
+    show_edges=True,
+    scalar_bar_args={"title": "u1"},
+    interactive = False
+)
 
 # %% [markdown]
 # Then, we project all the dataset meshes onto a constant rectilinear mesh. The process works seamlessly for 2D and 3D meshes, and relies on finite element interpolation, that exploit the order of the underlying finite element representation of the solution:
@@ -78,20 +75,14 @@ projected_dataset = project_on_regular_grid(
     dataset, dimensions=dims, bbox=bbox, verbose=True
 )
 
-img_name = "transformation_2.png"
-if os.environ.get("READTHEDOCS") == "True" or os.environ.get("GITHUB_ACTIONS"):
-    display(IPyImage(filename=img_name))
-else:
-    img_array = plot_sample_field(
-        projected_dataset[ids[0]],
-        "u1",
-        title="Projection on regular grid mesh",
-        show_edges=True,
-        scalar_bar_args={"title": "u1"},
-    )
-    img = PILImage.fromarray(img_array)
-    img.save(img_name)
-    display(img)
+plot_sample_field(
+    projected_dataset[ids[0]],
+    "u1",
+    title="Projection on regular grid mesh",
+    show_edges=True,
+    scalar_bar_args={"title": "u1"},
+    interactive = False
+)
 
 # %% [markdown]
 # We can easily project back to the initial meshes of the dataset, using again finite element interpolation:
@@ -101,20 +92,14 @@ inv_projected_dataset = project_on_other_dataset(
     projected_dataset, dataset, verbose=True
 )
 
-img_name = "transformation_3.png"
-if os.environ.get("READTHEDOCS") == "True" or os.environ.get("GITHUB_ACTIONS"):
-    display(IPyImage(filename=img_name))
-else:
-    img_array = plot_sample_field(
-        inv_projected_dataset[ids[0]],
-        "u1",
-        title="Projection back to inital mesh",
-        show_edges=True,
-        scalar_bar_args={"title": "u1"},
-    )
-    img = PILImage.fromarray(img_array)
-    img.save(img_name)
-    display(img)
+plot_sample_field(
+    inv_projected_dataset[ids[0]],
+    "u1",
+    title="Projection back to inital mesh",
+    show_edges=True,
+    scalar_bar_args={"title": "u1"},
+    interactive = False
+)
 
 # %% [markdown]
 # We compute the error made by both projections, and illustrate it:
@@ -124,20 +109,14 @@ error_1 = inv_projected_dataset[ids[0]].get_field("u1") - dataset[ids[0]].get_fi
     "u1"
 )
 
-img_name = "transformation_4.png"
-if os.environ.get("READTHEDOCS") == "True" or os.environ.get("GITHUB_ACTIONS"):
-    display(IPyImage(filename=img_name))
-else:
-    img_array = plot_field(
-        dataset[ids[0]],
-        field=error_1,
-        title="u1 error from projection and inverse projection",
-        show_edges=True,
-        scalar_bar_args={"title": "u1 error"},
-    )
-    img = PILImage.fromarray(img_array)
-    img.save(img_name)
-    display(img)
+plot_field(
+    dataset[ids[0]],
+    field=error_1,
+    title="u1 error from projection and inverse projection",
+    show_edges=True,
+    scalar_bar_args={"title": "u1 error"},
+    interactive = False
+)
 
 # %% [markdown]
 # We compute the norm of the error made by the direct and inverse projections:
@@ -186,21 +165,15 @@ naive_inv_proj_u1 = naive_proj_u1[id_origin_nodes]
 
 error_2 = naive_inv_proj_u1 - dataset[ids[0]].get_field("u1")
 
-img_name = "transformation_5.png"
-if os.environ.get("READTHEDOCS") == "True" or os.environ.get("GITHUB_ACTIONS"):
-    display(IPyImage(filename=img_name))
-else:
-    img_array = plot_field(
-        dataset[ids[0]],
-        field=error_2,
-        title="u1 error from naive projection and inverse projection",
-        show_edges=True,
-        scalar_bar_args={"title": "u1 error"},
-        clim=[min(error_1), max(error_1)],
-    )
-    img = PILImage.fromarray(img_array)
-    img.save(img_name)
-    display(img)
+plot_field(
+    dataset[ids[0]],
+    field=error_2,
+    title="u1 error from naive projection and inverse projection",
+    show_edges=True,
+    scalar_bar_args={"title": "u1 error"},
+    clim=[min(error_1), max(error_1)],
+    interactive = False
+)
 
 # %% [markdown]
 # We compute the norm of the error made by the naive direct and inverse projections:

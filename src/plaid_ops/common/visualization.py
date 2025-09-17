@@ -8,7 +8,7 @@ from Muscat.Bridges.PyVistaBridge import MeshToPyVista
 from plaid.containers.sample import Sample
 from plaid.types import Field
 
-pv.OFF_SCREEN = True
+# pv.OFF_SCREEN = True
 
 
 def _generate_pyvista_mesh(
@@ -64,7 +64,7 @@ def plot_sample_field(
     field = sample.get_field(
         name=field_name, base_name=base_name, zone_name=zone_name, time=time
     )
-    return plot_field(sample, field, base_name, zone_name, time, title, **kwargs)
+    plot_field(sample, field, base_name, zone_name, time, title, **kwargs)
 
 
 def plot_field(
@@ -74,9 +74,10 @@ def plot_field(
     base_name: Optional[str] = None,
     zone_name: Optional[str] = None,
     title: Optional[str] = None,
-    pytest: Optional[bool] = False,
+    interactive: Optional[bool] = True,
     **kwargs,
-) -> pv.pyvista_ndarray:
+) -> None:
+    # ) -> pv.pyvista_ndarray:
     """Plot a given field using a sample geometrical support.
 
     Args:
@@ -86,7 +87,7 @@ def plot_field(
         base_name (Optional[str], optional): The base name for mesh extraction. Defaults to None.
         zone_name (Optional[str], optional): The zone name for mesh extraction. Defaults to None.
         title (Optional[str], optional): The title for the plot. Defaults to None.
-        pytest (Optional[bool], optional): If True, runs the plot in pytest mode. Defaults to False.
+        interactive (Optional[bool], optional): If True, make the plot persist on the screen. Defaults to True.
         **kwargs: Additional keyword arguments passed to `pv.Plotter.add_mesh`.
 
     Returns:
@@ -105,10 +106,4 @@ def plot_field(
     if title:
         plotter.add_text(title, font_size=12, color="black", position="upper_edge")
 
-    if pytest:
-        img_array = 0.0
-    else:  # pragma: no cover
-        img_array = plotter.screenshot(return_img=True)
-    plotter.close()
-
-    return img_array
+    plotter.show(interactive=interactive)

@@ -1,11 +1,12 @@
 # ---
 # jupyter:
 #   jupytext:
+#     custom_cell_magics: kql
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.17.3
+#       jupytext_version: 1.11.2
 #   kernelspec:
 #     display_name: plaid-ops
 #     language: python
@@ -19,7 +20,11 @@
 # This notebook illustrates some feature engineering capabilities provided by plaid-ops.
 
 # %%
-import os
+import pyvista as pv
+pv.set_jupyter_backend('trame')
+
+import logging
+logging.disable(logging.CRITICAL)
 
 from datasets import load_dataset
 from IPython.display import Image as IPyImage
@@ -71,20 +76,13 @@ print(
 sample = dataset[ids[0]]
 computed_sdf = compute_sdf(sample)
 
-img_name = "feature_engineering_1.png"
-if os.environ.get("READTHEDOCS") == "True" or os.environ.get("GITHUB_ACTIONS"):
-    print(os.getcwd())
-    display(IPyImage(filename=img_name))
-else:
-    img_array = plot_field(
-        sample,
-        field=computed_sdf,
-        title="SDF illustration",
-        scalar_bar_args={"title": "sdf"},
-    )
-    img = PILImage.fromarray(img_array)
-    img.save(img_name)
-    display(img)
+plot_field(
+    sample,
+    field=computed_sdf,
+    title="SDF illustration",
+    scalar_bar_args={"title": "sdf"},
+    interactive = False
+)
 
 # %% [markdown]
 # This computation relies on the finite element engine provided by Muscat. It computes the exact distance from each node to the boundary, i.e., to the surface elements that define the mesh boundary (for both 2D and 3D meshes seamlessly).
@@ -107,16 +105,10 @@ naive_sdf, _ = kdtree.query(mesh.nodes)
 
 difference_sdf = computed_sdf - naive_sdf
 
-img_name = "feature_engineering_2.png"
-if os.environ.get("READTHEDOCS") == "True" or os.environ.get("GITHUB_ACTIONS"):
-    display(IPyImage(filename=img_name))
-else:
-    img_array = plot_field(
-        sample,
-        field=difference_sdf,
-        title="SDF error computation",
-        scalar_bar_args={"title": "sdf error"},
-    )
-    img = PILImage.fromarray(img_array)
-    img.save(img_name)
-    display(img)
+plot_field(
+    sample,
+    field=difference_sdf,
+    title="SDF error computation",
+    scalar_bar_args={"title": "sdf error"},
+    interactive = False
+)
