@@ -30,8 +30,3 @@ python:
   install:
     - method: pip
       path: .
-
-      build:
-  apt_packages:
-    - libclang
-    - cmake
