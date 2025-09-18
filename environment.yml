@@ -5,14 +5,14 @@ channels:
 dependencies:
   - python=3.11
 ##### RUN #####
+  - h5py # [linux]
   - muscat-core=2.5 # [linux]
   - muscat=2.5 # [win or osx]
-  - h5py # [linux]
   - pip
   - pip:
 ##### RUN #####
-    - vtk>=9.4 # [linux]
     - git+https://github.com/PLAID-lib/plaid.git
+    - vtk>=9.4 # [linux]
 ##### DEV #####
 #---# testing
     - pytest
