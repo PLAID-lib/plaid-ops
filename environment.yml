@@ -6,11 +6,11 @@ dependencies:
   - python=3.11
 ##### RUN #####
   - hdf5
+  - vtk>=9.4
   - muscat-core=2.5
   - pip
   - pip:
 ##### RUN #####
-    - vtk>=9.4
     - git+https://github.com/PLAID-lib/plaid.git
 ##### DEV #####
 #---# testing
