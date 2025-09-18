@@ -9,17 +9,6 @@ from plaid.containers.sample import Sample
 from plaid.types import Field
 
 
-def _check_offscreen_support(interactive: Optional[bool]) -> None:
-    """Raise if offscreen rendering is not supported on this OS."""
-    if not interactive:
-        import platform
-
-        if platform.system() in ["Windows", "Darwin"]:
-            raise NotImplementedError(
-                "Offscreen rendering is only supported on Linux with vtk-osmesa."
-            )  # pragma: no cover (Coverage computed in Linux CI)
-
-
 def _generate_pyvista_mesh(
     sample: Sample,
     time: Optional[float] = None,
@@ -105,7 +94,12 @@ def plot_field(
         Optional[pv.pyvista_ndarray]: Screenshot image as a NumPy array if ``interactive=False``,
         otherwise ``None``.
     """
-    _check_offscreen_support(interactive)
+    if not interactive:
+        import platform
+
+        if platform.system() in ["Windows", "Darwin"]:
+            print("Offscreen rendering is only supported on Linux with vtk-osmesa.")
+            return None
 
     sample_ = sample.copy()
     sample_.del_all_fields()
