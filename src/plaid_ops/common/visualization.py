@@ -43,7 +43,7 @@ def plot_sample_field(
     zone_name: Optional[str] = None,
     time: Optional[float] = None,
     title: Optional[str] = None,
-    interactive: Optional[bool] = True,
+    interactive: bool = True,
     **kwargs,
 ) -> Optional[pv.pyvista_ndarray]:
     """Plot a field from a sample using PyVista.
@@ -55,7 +55,7 @@ def plot_sample_field(
         zone_name (Optional[str], optional): The zone name for mesh extraction. Defaults to None.
         time (Optional[float], optional): The simulation time to extract the field. Defaults to None.
         title (Optional[str], optional): The title for the plot. Defaults to None.
-        interactive (Optional[bool], optional): If True, make the plot persist on the screen. Defaults to True.
+        interactive (bool): If True, make the plot persist on the screen. Defaults to True.
         **kwargs: Additional keyword arguments passed to `plot_field`.
 
     Returns:
@@ -75,7 +75,7 @@ def plot_field(
     base_name: Optional[str] = None,
     zone_name: Optional[str] = None,
     title: Optional[str] = None,
-    interactive: Optional[bool] = True,
+    interactive: bool = True,
     **kwargs,
 ) -> Optional[pv.pyvista_ndarray]:
     """Plot a given field using a sample geometrical support.
@@ -87,7 +87,7 @@ def plot_field(
         base_name (Optional[str], optional): The base name for mesh extraction. Defaults to None.
         zone_name (Optional[str], optional): The zone name for mesh extraction. Defaults to None.
         title (Optional[str], optional): The title for the plot. Defaults to None.
-        interactive (Optional[bool], optional): If True, make the plot persist on the screen. Defaults to True.
+        interactive (bool): If True, make the plot persist on the screen. Defaults to True.
         **kwargs: Additional keyword arguments passed to `pv.Plotter.meshes.add_tree`.
 
     Returns:
