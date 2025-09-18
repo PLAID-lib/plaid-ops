@@ -56,7 +56,7 @@ def plot_sample_field(
     title: Optional[str] = None,
     interactive: Optional[bool] = True,
     **kwargs,
-):
+) -> Optional[pv.pyvista_ndarray]:
     """Plot a field from a sample using PyVista.
 
     Args:
@@ -70,7 +70,7 @@ def plot_sample_field(
         **kwargs: Additional keyword arguments passed to `plot_field`.
 
     Returns:
-        Optional[np.ndarray]: Screenshot image as a NumPy array if ``interactive=False``,
+        Optional[pv.pyvista_ndarray]: Screenshot image as a NumPy array if ``interactive=False``,
         otherwise ``None``.
     """
     field = sample.get_field(
@@ -88,7 +88,7 @@ def plot_field(
     title: Optional[str] = None,
     interactive: Optional[bool] = True,
     **kwargs,
-):
+) -> Optional[pv.pyvista_ndarray]:
     """Plot a given field using a sample geometrical support.
 
     Args:
@@ -102,7 +102,7 @@ def plot_field(
         **kwargs: Additional keyword arguments passed to `pv.Plotter.meshes.add_tree`.
 
     Returns:
-        Optional[np.ndarray]: Screenshot image as a NumPy array if ``interactive=False``,
+        Optional[pv.pyvista_ndarray]: Screenshot image as a NumPy array if ``interactive=False``,
         otherwise ``None``.
     """
     _check_offscreen_support(interactive)
