@@ -12,7 +12,7 @@ dependencies:
   - pip
   - pip:
 ##### RUN #####
-    - git+https://github.com/PLAID-lib/plaid.git
+    - pyplaid=0.1.8
 ##### DEV #####
 #---# testing
     - pytest
