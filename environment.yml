@@ -12,7 +12,7 @@ dependencies:
   - pip
   - pip:
 ##### RUN #####
-    - pyplaid=0.1.8
+    - pyplaid==0.1.8
 ##### DEV #####
 #---# testing
     - pytest
