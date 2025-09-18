@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Removed
+
+## [0.1.8] - 2025-09-18
+
+### Added
+
 - (docs/notebooks) configure examples folder with jupytext
 - example folder run in testing actions
 - added first mesh-based feature engineering and transformation functionalities
@@ -23,5 +31,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial empty release — versioning aligned with plaid’s.
 
-[unreleased]: https://github.com/PLAID-lib/plaid-ops/compare/0.1.7...HEAD
+[unreleased]: https://github.com/PLAID-lib/plaid-ops/compare/0.1.8...HEAD
+[0.1.8]: https://github.com/PLAID-lib/plaid-ops/compare/0.1.7...0.1.8
 [0.1.7]: https://github.com/PLAID-lib/plaid-ops/releases/tag/0.1.7
