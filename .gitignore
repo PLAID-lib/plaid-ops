@@ -45,6 +45,10 @@ report.xml
 .hypothesis/
 .pytest_cache/
 
+# Jupyter Notebook
+.ipynb_checkpoints
+.ipynb
+
 # VisualStudioCode
 .vscode/*
 !.vscode/settings.json
@@ -60,12 +64,7 @@ docs/_build/
 docs/api_reference/
 docs/autoapi/
 docs/_extra/
-docs/source/notebooks/*
-
-# Jupyter Notebook
-.ipynb_checkpoints
-# notebooks/*.png
-notebooks/*.yaml
+docs/source/notebooks
 
 
 ###############################################################################
