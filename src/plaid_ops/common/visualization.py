@@ -17,7 +17,7 @@ def _check_offscreen_support(interactive: Optional[bool]) -> None:
         if platform.system() in ["Windows", "Darwin"]:
             raise NotImplementedError(
                 "Offscreen rendering is only supported on Linux with vtk-osmesa."
-            )
+            )  # pragma: no cover (Coverage computed in Linux CI)
 
 
 def _generate_pyvista_mesh(

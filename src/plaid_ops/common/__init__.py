@@ -10,7 +10,7 @@ def _in_notebook():
         return False
 
 
-if _in_notebook():
+if _in_notebook():  # pragma: no cover (not computed in CI)
     import os
 
     import pyvista as pv
