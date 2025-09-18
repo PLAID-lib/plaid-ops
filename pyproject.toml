@@ -34,7 +34,7 @@ classifiers = [
 
 dependencies = [
     "pyplaid @ git+https://github.com/PLAID-lib/plaid.git",
-    'vtk>=9.4',
+    'vtk>=9.4; platform_system == "Linux"',
 ]
 
 dynamic = ["version"]
