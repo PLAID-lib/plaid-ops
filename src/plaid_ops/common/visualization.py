@@ -97,10 +97,9 @@ def plot_field(
     if not interactive:
         import platform
 
-        if platform.system() in [
-            "Windows",
-            "Darwin",
-        ]:  # pragma: no cover (coverage computed on Linux CI only)
+        if (
+            platform.system() != "Linux"
+        ):  # pragma: no cover (coverage computed on Linux CI only)
             print("Offscreen rendering is only supported on Linux with vtk-osmesa.")
             return None
 

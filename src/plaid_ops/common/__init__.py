@@ -16,5 +16,4 @@ if _in_notebook():  # pragma: no cover (not computed in CI)
     import pyvista as pv
 
     pv.set_jupyter_backend("static")
-
     os.environ["PYVISTA_OFF_SCREEN"] = "true"
