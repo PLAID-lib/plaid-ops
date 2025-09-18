@@ -21,10 +21,11 @@
 
 # %%
 import os
-import pyvista as pv
-pv.set_jupyter_backend('static')
+# import pyvista as pv
+# pv.set_jupyter_backend('static')
 
 os.environ["PYVISTA_OFF_SCREEN"] = "true"
+os.environ["PYVISTA_OFF_SCREEN"] = "osmesa"
 
 import logging
 logging.disable(logging.CRITICAL)
