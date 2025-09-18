@@ -42,7 +42,7 @@ jobs:
       - name: Create environment (Linux)
         if: runner.os == 'Linux'
         run: |
-          conda create -n plaid-ops python=${{ matrix.python-version }} h5py muscat-core=2.5 -c conda-forge
+          conda create -n plaid-ops python=${{ matrix.python-version }} hdf5 muscat-core=2.5 -c conda-forge
           conda run -n plaid-ops python -m pip install -e .[dev]
 
       - name: Create environment (macOS and Windows)
