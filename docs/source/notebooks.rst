@@ -8,5 +8,5 @@ You can find here all basic detailed examples of different parts of plaid-ops, e
    :glob:
    :maxdepth: 1
 
-   notebooks/feature_engineering
-   notebooks/transformations
+   notebooks/mesh/feature_engineering_example
+   notebooks/mesh/transformations_example

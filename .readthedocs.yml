@@ -14,13 +14,17 @@ build:
   os: "ubuntu-24.04"
   tools:
     python: "mambaforge-latest"
-  # -------------------------------------------------------------------
-  # To uncomment when needed (typically when more than 50 commits)
-  # -------------------------------------------------------------------
+  apt_packages:
+    - libgl1
+    - mesa-utils
+
+# -------------------------------------------------------------------
+# To merge above when needed (typically when more than 50 commits)
+# -------------------------------------------------------------------
   # jobs:
   #   pre_build:
-  #     - git fetch origin --unshallow
-  #     - git rev-list --count HEAD
+  #   - git fetch origin --unshallow
+  #   - git rev-list --count HEAD
 
 python:
   install:

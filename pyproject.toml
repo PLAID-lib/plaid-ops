@@ -10,7 +10,7 @@ description = "Mesh operations for PLAID datasets"
 authors = [
     { name = "Safran", email = "fabien.casenave@safrangroup.com" }
 ]
-requires-python = ">=3.9, <3.13"
+requires-python = ">=3.10, <3.14"
 keywords=[
     "machine learning",
     "physics",
@@ -23,10 +23,10 @@ classifiers = [
     "Operating System :: MacOS",
     "Operating System :: POSIX",
     "Operating System :: Microsoft :: Windows",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Scientific/Engineering :: Mathematics",
@@ -76,6 +76,7 @@ dev = [
     "sphinx-autoapi",
     "myst-nb",
     "myst-parser",
-    "nbconvert",
+    "jupytext",
     "furo",
+    "pyvista[jupyter]",
 ]

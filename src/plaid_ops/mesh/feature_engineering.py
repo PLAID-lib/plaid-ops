@@ -19,7 +19,7 @@ def compute_sdf(
     """Compute the signed distance function (SDF) for a mesh extracted from a Sample.
 
     This function extracts the mesh from the given Sample (optionally at a specific time,
-    base, or zone), converts it to a working :ref:`Muscat.MeshContainers.Mesh.Mesh` mesh, and computes the signed distance
+    base, or zone), converts it to a working Muscat mesh, and computes the signed distance
     function (SDF) at each mesh node.
 
     Args:
@@ -96,7 +96,7 @@ def update_dataset_with_sdf(
     if not in_place:
         dataset = dataset.copy()
     for sample in tqdm(dataset, total=len(dataset), disable=not verbose):
-        for time in sample.get_all_mesh_times():
+        for time in sample.meshes.get_all_mesh_times():
             sdf = compute_sdf(sample, base_name, zone_name, time)
             sample.add_field(
                 "sdf",

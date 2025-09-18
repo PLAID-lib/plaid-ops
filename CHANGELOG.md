@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- (docs/notebooks) configure examples folder with jupytext
+- example folder run in testing actions
+- added first mesh-based feature engineering and transformation functionalities
+
 ### Changed
 
 ### Removed

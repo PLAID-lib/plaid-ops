@@ -5,7 +5,10 @@ channels:
 dependencies:
   - python=3.11
 ##### RUN #####
-  - muscat=2.5.0
+  - hdf5
+  - vtk>=9.4
+  - pycgns-core
+  - muscat-core=2.5
   - pip
   - pip:
 ##### RUN #####
@@ -24,5 +27,6 @@ dependencies:
     - sphinx-autoapi
     - myst-nb
     - myst-parser
-    - nbconvert
+    - jupytext
     - furo
+    - pyvista[jupyter]
