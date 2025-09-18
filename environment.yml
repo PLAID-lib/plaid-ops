@@ -7,7 +7,7 @@ dependencies:
 ##### RUN #####
   - hdf5
   - vtk>=9.4
-  - pycgns
+  - pycgns-core
   - muscat-core=2.5
   - pip
   - pip:
