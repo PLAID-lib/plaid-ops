@@ -20,7 +20,7 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest] #, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ["3.9", "3.10", "3.11", "3.12"] #, "3.13"]
 
     steps:
@@ -67,18 +67,11 @@ jobs:
         run: |
           conda run -n plaid-ops python -m pytest tests
 
-      - name: Run examples on Unix
-        if: runner.os != 'Windows'
+      - name: Run examples on Linux
+        if: runner.os == 'Linux'
         run: |
           cd examples
           conda run -n plaid-ops bash run_examples.sh
-
-      - name: Run examples on Windows
-        if: runner.os == 'Windows'
-        shell: powershell
-        run: |
-          cd examples
-          conda run -n plaid-ops run_examples.bat
 
       - name: Upload coverage to Codecov (Linux and python 3.11 only)
         if: runner.os == 'Linux' && matrix.python-version == '3.11'
