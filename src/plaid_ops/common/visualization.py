@@ -9,6 +9,17 @@ from plaid.containers.sample import Sample
 from plaid.types import Field
 
 
+def _check_offscreen_support(interactive: Optional[bool]) -> None:
+    """Raise if offscreen rendering is not supported on this OS."""
+    if not interactive:
+        import platform
+
+        if platform.system() in ["Windows", "Darwin"]:
+            raise NotImplementedError(
+                "Offscreen rendering is only supported on Linux with vtk-osmesa."
+            )
+
+
 def _generate_pyvista_mesh(
     sample: Sample,
     time: Optional[float] = None,
@@ -43,6 +54,7 @@ def plot_sample_field(
     zone_name: Optional[str] = None,
     time: Optional[float] = None,
     title: Optional[str] = None,
+    interactive: Optional[bool] = True,
     **kwargs,
 ):
     """Plot a field from a sample using PyVista.
@@ -54,12 +66,17 @@ def plot_sample_field(
         zone_name (Optional[str], optional): The zone name for mesh extraction. Defaults to None.
         time (Optional[float], optional): The simulation time to extract the field. Defaults to None.
         title (Optional[str], optional): The title for the plot. Defaults to None.
+        interactive (Optional[bool], optional): If True, make the plot persist on the screen. Defaults to True.
         **kwargs: Additional keyword arguments passed to `plot_field`.
+
+    Returns:
+        Optional[np.ndarray]: Screenshot image as a NumPy array if ``interactive=False``,
+        otherwise ``None``.
     """
     field = sample.get_field(
         name=field_name, base_name=base_name, zone_name=zone_name, time=time
     )
-    plot_field(sample, field, base_name, zone_name, time, title, **kwargs)
+    plot_field(sample, field, base_name, zone_name, time, title, interactive, **kwargs)
 
 
 def plot_field(
@@ -83,7 +100,13 @@ def plot_field(
         title (Optional[str], optional): The title for the plot. Defaults to None.
         interactive (Optional[bool], optional): If True, make the plot persist on the screen. Defaults to True.
         **kwargs: Additional keyword arguments passed to `pv.Plotter.meshes.add_tree`.
+
+    Returns:
+        Optional[np.ndarray]: Screenshot image as a NumPy array if ``interactive=False``,
+        otherwise ``None``.
     """
+    _check_offscreen_support(interactive)
+
     sample_ = sample.copy()
     sample_.del_all_fields()
     pv_mesh = _generate_pyvista_mesh(sample_, time, base_name, zone_name)
@@ -97,7 +120,11 @@ def plot_field(
     if title:
         plotter.add_text(title, font_size=12, color="black", position="upper_edge")
 
-    if not interactive:
-        return plotter.show(screenshot=True, auto_close=True)
+    if interactive:  # pragma: no cover (cannot run in CI)
+        plotter.show()
+        return None
 
-    plotter.show()  # pragma: no cover (cannot run in gitlab-ci)
+    # Offscreen rendering → return screenshot
+    img = plotter.show(screenshot=True)
+    plotter.close()
+    return img

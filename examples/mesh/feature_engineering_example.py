@@ -20,15 +20,15 @@
 # This notebook illustrates some feature engineering capabilities provided by plaid-ops.
 
 # %%
-import os
-# import pyvista as pv
-# pv.set_jupyter_backend('static')
-
-os.environ["PYVISTA_OFF_SCREEN"] = "true"
-os.environ["PYVISTA_OFF_SCREEN"] = "osmesa"
-
 import logging
 logging.disable(logging.CRITICAL)
+
+from plaid_ops.common.visualization import plot_field
+from plaid_ops.mesh.feature_engineering import (
+    compute_sdf,
+    update_dataset_with_sdf,
+    update_sample_with_sdf,
+)
 
 import numpy as np
 from datasets import load_dataset
@@ -44,13 +44,7 @@ pb_def = huggingface_description_to_problem_definition(hf_dataset.info.descripti
 ids = pb_def.get_split("DOE_train")[:2]
 dataset, _ = huggingface_dataset_to_plaid(hf_dataset, ids=ids, processes_number=2, verbose=False)
 
-# %%
-from plaid_ops.common.visualization import plot_field
-from plaid_ops.mesh.feature_engineering import (
-    compute_sdf,
-    update_dataset_with_sdf,
-    update_sample_with_sdf,
-)
+
 
 # %% [markdown]
 # ## Dataset-wide signed-distance function computation
@@ -93,7 +87,6 @@ array_img = plot_field(
 # We now illustrate the error introduced by using a naive computation of the SDF, which measures the distance to the nearest point on the boundary.
 
 # %%
-import numpy as np
 from Muscat.Bridges.CGNSBridge import CGNSToMesh
 from scipy.spatial import KDTree
 
