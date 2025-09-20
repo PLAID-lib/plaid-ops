@@ -41,4 +41,5 @@ jobs:
 
       - name: Compile documentation
         run: |
+          cd docs
           conda run -n plaid-ops bash generate_doc.sh
