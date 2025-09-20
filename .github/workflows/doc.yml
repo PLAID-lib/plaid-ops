@@ -25,20 +25,38 @@ jobs:
       - name: Install packages
         run: sudo apt-get install -y libgl1 mesa-utils
 
-      - name: Set up Conda
-        uses: conda-incubator/setup-miniconda@v2
+      - name: Set up Env with Mamba
+        uses: conda-incubator/setup-miniconda@v3
         with:
-          use-mamba: false
+          use-mamba: true
           python-version: 3.11
+          activate-environment: plaid-ops
+          environment-file: environment.yml
           auto-activate-base: false
           miniforge-variant: Miniforge3
-
-      - name: Create environment
-        run: |
-          conda env create -f environment.yml
-          conda run -n plaid-ops pip install -e .[dev]
 
       - name: Compile documentation
         run: |
           cd docs
+          pwd
+          conda env list
+          which python
           conda run -n plaid-ops bash generate_doc.sh
+
+      # - name: Set up Conda
+      #   uses: conda-incubator/setup-miniconda@v2
+      #   with:
+      #     use-mamba: false
+      #     python-version: 3.11
+      #     auto-activate-base: false
+      #     miniforge-variant: Miniforge3
+
+      # - name: Create environment
+      #   run: |
+      #     conda env create -f environment.yml
+      #     conda run -n plaid-ops pip install -e .[dev]
+
+      # - name: Compile documentation
+      #   run: |
+      #     cd docs
+      #     conda run -n plaid-ops bash generate_doc.sh
