@@ -35,9 +35,8 @@ jobs:
 
       - name: Create environment
         run: |
-          conda create -n plaid-ops python=3.11 hdf5 vtk>=9.4 pycgns-core muscat-core=2.5 -c conda-forge
-          conda run -n plaid-ops python -m pip install -e .[dev]
-
+          conda env create -f environment.yml
+          conda run -n plaid-ops pip install -e .[dev]
 
       - name: Compile documentation
         run: |

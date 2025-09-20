@@ -1,7 +1,7 @@
 name: plaid-ops
 channels:
   - conda-forge
-  - nodefaults
+channel_priority: strict
 dependencies:
   - python=3.11
 ##### RUN #####
