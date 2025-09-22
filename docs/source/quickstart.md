@@ -1,10 +1,6 @@
-# plaid-ops
+# Quickstart
 
-Standardized operations on PLAID (Physics Learning AI Datamodel) samples and datasets.
-
-> [!WARNING]
-> The code is still in its initial configuration stages; interfaces may change. Use with care.
-
+Everything you need to start using plaid-ops and contributing effectively.
 
 ## 1 Using the library
 
