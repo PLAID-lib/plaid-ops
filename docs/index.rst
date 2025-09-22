@@ -7,7 +7,7 @@
 
     <br>
 
-.. image:: https://plaid-lib.github.io/assets/images/PLAID-large-logo.png
+.. image:: https://plaid-lib.github.io/assets/images/plaid-ops-logo.png
    :align: center
    :width: 300px
 
@@ -41,10 +41,10 @@
 .. |Python Version| image:: https://img.shields.io/pypi/pyversions/plaid-ops
    :target: https://github.com/PLAID-lib/plaid-ops
 
-.. |PyPi Downloads| image:: https://static.pepy.tech/badge/pyplaid
-   :target: https://pepy.tech/projects/pyplaid
+.. |PyPi Downloads| image:: https://static.pepy.tech/badge/plaid-ops
+   :target: https://pepy.tech/projects/plaid-ops
 
-.. |License| image:: https://anaconda.org/conda-forge/plaid-ops/badges/license.svg
+.. |License| image:: https://anaconda.org/conda-forge/plaid/badges/license.svg
    :target: https://github.com/PLAID-lib/plaid-ops/blob/main/LICENSE.txt
 
 .. |GitHub Stars| image:: https://img.shields.io/github/stars/PLAID-lib/plaid-ops?style=social

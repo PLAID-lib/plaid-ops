@@ -1,3 +1,14 @@
+<div align="center">
+<img src="https://plaid-lib.github.io/assets/images/plaid-ops-logo.png" width="300">
+</div>
+
+| | |
+| --- | --- |
+| Testing | [![CI Status](https://github.com/PLAID-lib/plaid-ops/actions/workflows/testing.yml/badge.svg)](https://github.com/PLAID-lib/plaid-ops/actions/workflows/testing.yml) [![Documentation Status](https://readthedocs.org/projects/plaid-ops/badge/?version=latest)](https://plaid-ops.readthedocs.io/en/latest/?badge=latest) [![Coverage](https://codecov.io/gh/plaid-lib/plaid-ops/branch/main/graph/badge.svg)](https://app.codecov.io/gh/plaid-lib/plaid-ops/tree/main?search=&displayType=list) ![Last Commit](https://img.shields.io/github/last-commit/PLAID-lib/plaid-ops/main) |
+| Package | [![PyPI Latest Release](https://img.shields.io/pypi/v/plaid-ops.svg)](https://pypi.org/project/plaid-ops/) [![PyPI Downloads](https://static.pepy.tech/badge/plaid-ops)](https://pepy.tech/projects/plaid-ops) ![Platform](https://img.shields.io/badge/platform-any-blue) ![Python Version](https://img.shields.io/pypi/pyversions/plaid-ops)  |
+| Other | [![License - BSD 3-Clause](https://anaconda.org/conda-forge/plaid/badges/license.svg)](https://github.com/PLAID-lib/plaid-ops/blob/main/LICENSE.txt) ![GitHub stars](https://img.shields.io/github/stars/PLAID-lib/plaid-ops?style=social)|
+
+
 # plaid-ops
 
 Standardized operations on PLAID (Physics Learning AI Datamodel) samples and datasets.
@@ -31,7 +42,7 @@ Installing from the sources:
 pip install -e .[dev]
 ```
 
-Note: this will install the last stable version of PLAID.
+Note: this will install the last stable version of [PLAID](https://github.com/PLAID-lib/plaid-ops).
 
 ## 2 Core concepts
 
