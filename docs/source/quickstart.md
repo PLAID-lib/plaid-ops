@@ -43,6 +43,5 @@ It builds on top of PLAID and uses Muscat FE operators under the hood for accura
 ## 3 Going further
 
 See the documentation for a concise getting started guide and end-to-end examples:
-- [Getting Started](https://plaid-ops.readthedocs.io/en/latest/source/getting_started.html)
 - [Examples & Tutorials](https://plaid-ops.readthedocs.io/en/latest/source/notebooks.html)
 - [API reference](https://plaid-ops.readthedocs.io/en/latest/autoapi/plaid_ops/index.html)
