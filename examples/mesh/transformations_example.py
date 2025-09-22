@@ -37,6 +37,9 @@ from plaid.bridges.huggingface_bridge import (
     huggingface_description_to_problem_definition,
 )
 
+from datasets.utils.logging import disable_progress_bar
+disable_progress_bar()
+
 hf_dataset = load_dataset(
     "PLAID-datasets/2D_Multiscale_Hyperelasticity", split="all_samples"
 )
