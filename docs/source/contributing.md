@@ -6,7 +6,7 @@ Thank you for your interest in contributing to PLAID Project! We welcome contrib
 
 Everything you need to know if you want to contribute.
 
-- [Contributing to PLAID](#contributing-to-plaid-ops)
+- [Contributing to plaid-ops](#contributing-to-plaid-ops)
   - [Summary](#summary)
   - [1. Before contributing](#1-before-contributing)
   - [2. Reporting Issues](#2-reporting-issues)
