@@ -7,5 +7,4 @@ except ImportError:  # pragma: no cover
 
 import os
 
-os.environ["OMP_PROC_BIND"] = "spread"
-os.environ["OMP_PLACES"] = "thread"
+os.environ["OMP_PROC_BIND"] = "true"
