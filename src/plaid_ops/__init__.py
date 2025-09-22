@@ -6,5 +6,6 @@ except ImportError:  # pragma: no cover
     __version__ = "None"
 
 import os
+
 os.environ["OMP_PROC_BIND"] = "spread"
 os.environ["OMP_PLACES"] = "thread"
