@@ -62,4 +62,4 @@ def sample_with_tree(tree: CGNSTree) -> Sample:
 @pytest.fixture()
 def dataset(sample_with_tree: Sample) -> Dataset:
     """Generate a Sample objects with a tree."""
-    return Dataset.from_list_of_samples([sample_with_tree, sample_with_tree])
+    return Dataset(samples=[sample_with_tree, sample_with_tree])
