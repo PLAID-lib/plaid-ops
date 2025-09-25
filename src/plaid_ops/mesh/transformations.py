@@ -35,11 +35,11 @@ def compute_bounding_box(
     """
     stats = OnlineStatistics()
     for sample in dataset:
-        mesh_times = times if times is not None else sample.meshes.get_all_mesh_times()
+        mesh_times = times if times is not None else sample.get_all_mesh_times()
         for time in mesh_times:
-            base_names_iter = base_names or sample.meshes.get_base_names(time=time)
+            base_names_iter = base_names or sample.get_base_names(time=time)
             for base_name in base_names_iter:
-                zone_names_iter = zone_names or sample.meshes.get_zone_names(
+                zone_names_iter = zone_names or sample.get_zone_names(
                     time=time, base_name=base_name, unique=True
                 )
                 for zone_name in zone_names_iter:
@@ -114,12 +114,8 @@ def project_on_regular_grid(
         for sn in sample.get_scalar_names():
             projected_sample.add_scalar(sn, sample.get_scalar(sn))
 
-        for tn in sample.get_time_series_names():
-            ts = sample.get_time_series(tn)
-            projected_sample.add_time_series(tn, ts[0], ts[1])
-
-        for time in sample.meshes.get_all_mesh_times():
-            projected_sample.meshes.add_tree(
+        for time in sample.get_all_mesh_times():
+            projected_sample.add_tree(
                 MeshToCGNS(background_mesh, exportOriginalIDs=False)
             )
 
@@ -209,11 +205,11 @@ def project_on_other_dataset(
         disable=not verbose,
     ):
         assert np.allclose(
-            sample_source.meshes.get_all_mesh_times(),
-            sample_target.meshes.get_all_mesh_times(),
+            sample_source.get_all_mesh_times(),
+            sample_target.get_all_mesh_times(),
         ), "`sample_source` and `sample_target` should have same time steps"
 
-        for time in sample_source.meshes.get_all_mesh_times():
+        for time in sample_source.get_all_mesh_times():
             mesh_source = CGNSToMesh(
                 sample_source.get_mesh(time=time),
                 baseNames=baseNames,
@@ -227,7 +223,7 @@ def project_on_other_dataset(
             mesh_target.nodeFields = {}
             mesh_target.elemFields = {}
 
-            sample_target.meshes.del_tree(time)
+            sample_target.del_tree(time)
 
             space, numberings, _, _ = PrepareFEComputation(
                 mesh_source, numberOfComponents=1
@@ -244,8 +240,6 @@ def project_on_other_dataset(
             for fn, field in mesh_source.nodeFields.items():
                 mesh_target.nodeFields[fn] = op.dot(field)
 
-            sample_target.meshes.add_tree(
-                MeshToCGNS(mesh_target, exportOriginalIDs=False)
-            )
+            sample_target.add_tree(MeshToCGNS(mesh_target, exportOriginalIDs=False))
 
     return dataset_target

@@ -1,4 +1,5 @@
 import os
+import platform
 
 import numpy as np
 
@@ -21,3 +22,14 @@ class Test_Visualization:
         plot_field(
             sample_with_tree, 1.0 + np.arange(5), title="test_title", interactive=False
         )
+
+    def test_plot_field_with_title_and_save_file(self, sample_with_tree):
+        plot_field(
+            sample_with_tree,
+            1.0 + np.arange(5),
+            title="test_title",
+            interactive=False,
+            file_name="test.png",
+        )
+        if platform.system() == "Linux":
+            os.remove("test.png")

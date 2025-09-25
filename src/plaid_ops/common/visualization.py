@@ -76,6 +76,7 @@ def plot_field(
     zone_name: Optional[str] = None,
     title: Optional[str] = None,
     interactive: bool = True,
+    file_name: Optional[str] = None,
     **kwargs,
 ) -> Optional[pv.pyvista_ndarray]:
     """Plot a given field using a sample geometrical support.
@@ -88,7 +89,8 @@ def plot_field(
         zone_name (Optional[str], optional): The zone name for mesh extraction. Defaults to None.
         title (Optional[str], optional): The title for the plot. Defaults to None.
         interactive (bool): If True, make the plot persist on the screen. Defaults to True.
-        **kwargs: Additional keyword arguments passed to `pv.Plotter.meshes.add_tree`.
+        file_name (Optional[str], optional): With interactive=False, enable to save the image with the provided file_name
+        **kwargs: Additional keyword arguments passed to `pv.Plotter.add_tree`.
 
     Returns:
         Optional[pv.pyvista_ndarray]: Screenshot image as a NumPy array if ``interactive=False``,
@@ -120,7 +122,9 @@ def plot_field(
         plotter.show()
         return None
 
-    # Offscreen rendering → return screenshot
+    # Offscreen rendering
     img = plotter.show(screenshot=True)
+    if file_name:
+        plotter.screenshot(file_name)
     plotter.close()
     return img
