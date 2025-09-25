@@ -1,4 +1,5 @@
 import os
+import platform
 
 import numpy as np
 
@@ -30,4 +31,5 @@ class Test_Visualization:
             interactive=False,
             file_name="test.png",
         )
-        os.remove("test.png")
+        if platform.system() == "Linux":
+            os.remove("test.png")
