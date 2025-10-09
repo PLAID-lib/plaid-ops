@@ -14,7 +14,7 @@ dependencies:
   - pip:
 ##### RUN #####
     # - pyplaid==0.1.8
-    - "pyplaid @ git+https://github.com/PLAID-lib/plaid.git@447c8d1fea8a956afe715e2f1ed67ff200bc40bd"
+    - "pyplaid @ git+https://github.com/PLAID-lib/plaid.git"
 ##### DEV #####
 #---# testing
     - pytest
