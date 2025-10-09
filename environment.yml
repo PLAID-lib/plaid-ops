@@ -1,6 +1,7 @@
 name: plaid-ops
 channels:
   - conda-forge
+  - nodefaults
 channel_priority: strict
 dependencies:
   - python=3.11
@@ -12,7 +13,8 @@ dependencies:
   - pip
   - pip:
 ##### RUN #####
-    - pyplaid==0.1.8
+    # - pyplaid==0.1.8
+    - "pyplaid @ git+https://github.com/PLAID-lib/plaid.git"
 ##### DEV #####
 #---# testing
     - pytest

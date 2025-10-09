@@ -54,13 +54,12 @@ def sample():
 def sample_with_tree(tree: CGNSTree) -> Sample:
     """Generate a Sample objects with a tree."""
     sample = Sample()
-    sample.meshes.add_tree(tree)
+    sample.add_tree(tree)
     sample.add_scalar("a", 1.0)
-    sample.add_time_series("b", [0.0, 1.0], [3.0, 4.0])
     return sample
 
 
 @pytest.fixture()
 def dataset(sample_with_tree: Sample) -> Dataset:
     """Generate a Sample objects with a tree."""
-    return Dataset.from_list_of_samples([sample_with_tree, sample_with_tree])
+    return Dataset(samples=[sample_with_tree, sample_with_tree])
