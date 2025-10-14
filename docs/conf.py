@@ -77,7 +77,7 @@ extensions = [
     # "sphinx_tabs.tabs", # not installed
 ]
 
-nb_execution_timeout = 300
+nb_execution_timeout = 600
 nb_execution_mode = "force"
 nb_execution_allow_errors = False
 nb_execution_raise_on_error = True
