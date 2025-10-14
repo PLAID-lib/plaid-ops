@@ -32,3 +32,4 @@ dependencies:
     - jupytext
     - furo
     - pyvista[jupyter]
+    - astroid<4
